@@ -1,2 +1,2 @@
-# WEBSITE-PHP
-Site desenvolvido como trabalho2 da disciplina de programação 2
+# WEBSITE
+Site desenvolvido como trabalho da disciplina de programaçãoII, 2018/2
