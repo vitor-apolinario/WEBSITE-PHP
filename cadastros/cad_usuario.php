@@ -6,5 +6,5 @@
 
 	$sql="INSERT INTO `usuario`(`email`, `senha`, `fl_tipo`) VALUES ('".$_POST['email']."','".$_POST['senha']."','C')";
 	mysqli_query($conexao, $sql);
-	header()
+	header("Location: ../index.php");
 ?>

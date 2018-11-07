@@ -78,6 +78,4 @@ function validaCadastro(){
 	
 	if(contErro > 0)
 		return false;
-	else
-		alert("Cadastro efetuado com sucesso"); // será removido posteriormente
 }
