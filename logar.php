@@ -21,5 +21,5 @@
 		$_SESSION['usuario'] = $resultset;
 		header("Location: index.php");
 	}else
-		header("Location: login.php?erro=1");
+		header("Location: login.php?erro=1&email=$email00");
 ?>

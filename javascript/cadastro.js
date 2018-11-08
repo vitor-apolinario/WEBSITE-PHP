@@ -79,3 +79,7 @@ function validaCadastro(){
 	if(contErro > 0)
 		return false;
 }
+
+function carregaCidades(){
+	alert('Falta implementar o ajaaaaaaax');
+}
