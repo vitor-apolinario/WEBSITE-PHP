@@ -81,19 +81,30 @@ function validaCadastro(){
 }
 
 function carregaCidades(uf){
-	alert(uf+" hello");
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
-		alert("function "+this.readyState+" "+this.status);
 		if (this.readyState == 4 && this.status == 200) {
-			alert("entrou if");
 			document.getElementById("city-select").innerHTML+=this.responseText;
 		}
 	};
-	xhttp.open("GET", "../ajax/buscaCidades.php?uf="+uf, true);
+	xhttp.open("GET", "ajax/buscaCidades.php?uf="+uf, true);
 	xhttp.send();
 }
 
+function tipoUsuario(fl_tipo){
+	if (fl_tipo == "C") {
+		document.getElementById("c1").disabled = false;
+		document.getElementById("c2").disabled = false;
+		document.getElementById("c3").disabled = false;
+		document.getElementById("datanasc").disabled = false;
+	}else{
+		document.getElementById("c1").disabled = true;
+		document.getElementById("c2").disabled = true;
+		document.getElementById("c3").disabled = true;
+		document.getElementById("datanasc").disabled = true;
+	}
+
+}
 
 
 
