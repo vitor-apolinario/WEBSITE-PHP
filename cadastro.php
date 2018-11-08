@@ -66,7 +66,7 @@
 			      <br><span class="msg-erro" id="msg-endereco"></span>
 			    </div>
 			    <div class="local">
-			    	<select onchange="carregaCidades()">
+			    	<select onchange="carregaCidades(this.value)" id="uf-select">
 			    		<option value="">UF</option>
 						<?php
 							include "includes/conexao.php";
@@ -77,7 +77,7 @@
 								echo "<option value='".$uf['sigla']."'>".$uf['sigla']."</option>";
 						?>
 			    	</select>
-			    	<select>
+			    	<select id="city-select">
 			    		<option value="">Cidade</option>
 			    	</select>
 			    </div>

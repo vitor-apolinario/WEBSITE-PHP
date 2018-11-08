@@ -80,6 +80,24 @@ function validaCadastro(){
 		return false;
 }
 
-function carregaCidades(){
-	alert('Falta implementar o ajaaaaaaax');
+function carregaCidades(uf){
+	alert(uf+" hello");
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		alert("function "+this.readyState+" "+this.status);
+		if (this.readyState == 4 && this.status == 200) {
+			alert("entrou if");
+			document.getElementById("city-select").innerHTML+=this.responseText;
+		}
+	};
+	xhttp.open("GET", "../ajax/buscaCidades.php?uf="+uf, true);
+	xhttp.send();
 }
+
+
+
+
+
+
+
+
