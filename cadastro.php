@@ -1,15 +1,15 @@
-<?php  
+<?php
 	@session_start();
-	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO, 
+	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO,
 	// E EXIBIR A LISTA DE FRETES DE ACORDO E TAMBÉM ADICIONAR
 	// UMA OPCAO CASO SEJA EMPRESA, PARA ARRUMAR OS DADOS
 ?>
 
-<?php  
+<?php
 	include "includes/header_cadastro.php"
 ?>
 
-	<?php  
+	<?php
 		if (!isset($_GET['ok'])){
 	?>
 	<div class="container">
@@ -17,8 +17,8 @@
 		<form action="cadastros/cad_usuario.php" method="post" id="form-cadastro">
 			<div class="tipo-usuario">
 				<label>SOU:</label>
-			    <label><input type="radio" name="fl_usuario" value="C" id="uC" onchange="tipoUsuario(this.value)" checked>Caminhoneiro</label>
-			    <label><input type="radio" name="fl_usuario" value="E" id="uE" onchange="tipoUsuario(this.value)">Empresa</label>
+			    <label><input type="radio" name="fl_usuario" value="C" id="uC" onchange="tipoUsuario(this.value)" <? if(isset($_GET['c']) && $_GET['c'] == 'c'){echo "checked";}?>>Caminhoneiro</label>
+			    <label><input type="radio" name="fl_usuario" value="E" id="uE" onchange="tipoUsuario(this.value)" <? if(isset($_GET['c']) && $_GET['c'] == 'e'){echo "checked";}?>>Empresa</label>
 			</div>
 		    <div class="form-item">
 		      <div>
@@ -53,7 +53,7 @@
 			    	<option value="">Cidade</option>
 			    </select>
 			   </div>
-		    </div>					    
+		    </div>
 		    <div class="form-item">
 		        <div>
 			      <label for="telefone" class="label-alinhado">Telefone:</label>
@@ -65,7 +65,7 @@
 			      <input type="text" id="endereco" name="endereco" placeholder="Rua, número, complemento" maxlength="50">
 			      <br><span class="msg-erro" id="msg-endereco"></span>
 			  </div>
-		    </div>			    
+		    </div>
 		    <div class="form-item">
 		      <div>
 			      <label for="senha" class="label-alinhado">Senha:</label>
@@ -96,21 +96,21 @@
 			      <label><input type="checkbox" class="label-alinhado" id="concordo" name="concordo"> Li e estou de acordo com os termos de uso do site</label>
 			      <br><span class="msg-erro" id="msg-concordo"></span>
 			    </div>
-		    </div>				    
+		    </div>
 			<div class="form-buttons">
 			   <input type="submit" id="botao" value="Confirmar">
 			   <input type="reset" id="botao-limpar" value="Limpar">
 			</div>
 		</form>
 	</div>
-	<?php  
+	<?php
 		}else{
 	?>
 		<p style="font-weight: bold; font-size: 1.5em;">Cadastro efetuado com sucesso!</p>
-	<?php  
+	<?php
 		}
 	?>
 
-<?php  
+<?php
 	include "includes/footer.php";
 ?>

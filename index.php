@@ -1,10 +1,10 @@
-<?php  
+<?php
 	@session_start();
-	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO, 
+	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO,
 	// E EXIBIR A LISTA DE FRETES DE ACORDO E TAMBÉM ADICIONAR
 	// UMA OPCAO CASO SEJA EMPRESA, PARA ARRUMAR OS DADOS
 ?>
-<?php 
+<?php
 	include "includes/header_index.php"
 ?>
 
@@ -15,11 +15,11 @@
 		<h2 class="titulo-section">Junte se a nós!</h2>
 	</div>
 	<div id= "opcoes_cadastro">
-		<a href="cadastro.php"><div class="sou">
+		<a href="cadastro.php?c=c"><div class="sou">
 			<p class="sou-title">SOU CAMINHONEIRO</p>
 			<p class="sou-desc">Encontre fretes de maneira fácil e ágil</p>
 		</div></a>
-		<a href="cadastro.php"><div class="sou">
+		<a href="cadastro.php?c=e"><div class="sou">
 			<p class="sou-title">SOU EMPRESA</p>
 			<p class="sou-desc">Anuncie e gerencie suas cargas</p>
 		</div></a>
@@ -51,6 +51,6 @@
 	</div>
 </section>
 </div>
-<?php 
+<?php
 	include "includes/footer.php";
 ?>
