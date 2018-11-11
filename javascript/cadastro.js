@@ -191,11 +191,12 @@ function validaCadastro(){
 		return false;
 }
 
-function carregaCidades(uf){
+function carregaCidades(uf, id){
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-			document.getElementById("city-select").innerHTML+=this.responseText;
+			document.getElementById(id).innerHTML="";
+			document.getElementById(id).innerHTML+=this.responseText;
 		}
 	};
 	xhttp.open("GET", "ajax/buscaCidades.php?uf="+uf, true);

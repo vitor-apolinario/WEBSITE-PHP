@@ -1,6 +1,6 @@
-<?php  
+<?php
 	@session_start();
-	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO, 
+	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO,
 	// E EXIBIR A LISTA DE FRETES DE ACORDO E TAMBÉM ADICIONAR
 	// UMA OPCAO CASO SEJA EMPRESA, PARA ARRUMAR OS DADOS
 ?>
@@ -32,11 +32,15 @@
 		    	<h4>Local inicial</h4>
 		    	<div>
 		    		<label for="uf" class="label-alinhado">UF:</label>
-			    	<select id="uf" name="uf" required>
-			    		<option value="">Selecione...</option>
-			    		<option value="pr">PR</option>
-			    		<option value="sc">SC</option>
-						<option value="rs">RS</option>
+			    	<select onchange="carregaCidades(this.value, 'cid')" id="uf" name="uf"   required>
+						<option value="">Selecione...</option>
+						<?php
+							include "includes/conexao.php";
+							$sql = "select nome, sigla from estado order by 1";
+							$estados = mysqli_query($conexao, $sql);
+							while ($estado = mysqli_fetch_array($estados)) {
+								echo '<option value ="'.$estado['sigla'].'">'.$estado['nome'].'</option>';
+						}?>
 			    	</select>
 			    	<br><span class="msg-erro label-alinhado" id="msg-uf-inicial"></span>
 		    	</div>
@@ -44,9 +48,6 @@
 			    	<label for="cid" class="label-alinhado">Cidade:</label>
 			    	<select id="cid" name="cid" required>
 			    		<option value="">Selecione...</option>
-			    		<option value="xap">Chapecó</option>
-			    		<option value="red">Redentora</option>
-						<option value="cur">Curitiba</option>
 			    	</select>
 			    	<br><span class="msg-erro label-alinhado" id="msg-cid-inicial"></span>
 		    	</div>
@@ -56,11 +57,14 @@
 					<h4>Destino</h4>
 		    	<div>
 		    		<label for="uf-dest" class="label-alinhado">UF:</label>
-			    	<select id="uf-dest"  name="uf-dest" required>
+			    	<select onchange="carregaCidades(this.value, 'cid-dest')" id="uf-dest"  name="uf-dest"  required>
 			    		<option value="">Selecione...</option>
-			    		<option value="pr">PR</option>
-			    		<option value="sc">SC</option>
-						<option value="rs">RS</option>
+						<?php
+							$sql = "select nome, sigla from estado order by 1";
+							$estados = mysqli_query($conexao, $sql);
+							while ($estado = mysqli_fetch_array($estados)) {
+								echo '<option value ="'.$estado['sigla'].'">'.$estado['nome'].'</option>';
+						}?>
 			    	</select>
 			    	<br><span class="msg-erro label-alinhado" id="msg-uf-final"></span>
 		    	</div>
@@ -68,9 +72,6 @@
 			    	<label for="cid-dest" class="label-alinhado">Cidade:</label>
 			    	<select id="cid-dest"  name="cid-dest" required>
 			    		<option value="">Selecione...</option>
-			    		<option value="xap">Chapecó</option>
-			    		<option value="red">Redentora</option>
-						<option value="cur">Curitiba</option>
 			    	</select>
 			    	<br><span class="msg-erro label-alinhado" id="msg-cid-final"></span>
 		    	</div>
@@ -80,7 +81,7 @@
 		    	<div>
 			    	<label for="peso" class="label-alinhado">Peso:</label>
 			    	<input type="number" id="peso" name="peso" value="1" min="1" required>
-			    	<br><span class="msg-erro label-alinhado" id="msg-peso"></span>	
+			    	<br><span class="msg-erro label-alinhado" id="msg-peso"></span>
 				</div>
 			    <div>
 			    	<label for="volume" class="label-alinhado">Volume:</label>
@@ -126,5 +127,6 @@
 	<footer>
 		<p style="text-align: right; padding-right: 20px;">Icons by <a href="https://www.flaticon.com/authors/ddara" style="text-decoration: none; color: black;">Ddara</a> from <a href="https://www.flaticon.com/" style="text-decoration: none; color: black;">Flaticon</a>.</p>
 	</footer>
+	<script src="javascript/cadastro.js"></script>
 </body>
 </html>

@@ -64,7 +64,7 @@
 			      <br><span class="msg-erro" id="msg-senha"></span>
 		      </div>
 			  <div class="local">
-			  <select onchange="carregaCidades(this.value)" id="uf-select">
+			  <select onchange="carregaCidades(this.value, 'city-select')" id="uf-select">
 				  <option value="">UF</option>
 					  <?php
 						  include "includes/conexao.php";
