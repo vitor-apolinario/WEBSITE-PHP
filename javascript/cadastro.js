@@ -202,14 +202,3 @@ function carregaCidades(uf, id){
 	xhttp.open("GET", "ajax/buscaCidades.php?uf="+uf, true);
 	xhttp.send();
 }
-
-function tipoUsuario(fl_tipo){
-	if (fl_tipo == "C") {
-		document.getElementById("local").style.display = 'block';
-		document.getElementById("datanasc").disabled = false;
-	}else{
-		document.getElementById("local").style.display = 'none';
-		document.getElementById("datanasc").disabled = true;
-	}
-
-}
