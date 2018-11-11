@@ -179,7 +179,7 @@ function validaCadastro(){
 
 	var cnpj = document.getElementById("cnpj");
 	var erro_cnpj = document.getElementById("msg-cnpj");
-	if(!validarCPF(cnpj.value)){
+	if(!validarCNPJ(cnpj.value)){
 		contErro+=1;
 		erro_cnpj.innerHTML = "Digite um CNPJ válido";
 		erro_cnpj.style.display = 'block';

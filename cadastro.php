@@ -41,7 +41,7 @@
 			  </div>
 			  <div>
 				<label for="cnpj" class="label-alinhado">CNPJ:</label>
-				<input type="text" id="cnpj" name="cnpj" maxlength="13" placeholder="xxxxxxxxxxx">
+				<input type="text" id="cnpj" name="cnpj" maxlength="14" placeholder="xxxxxxxxxxx">
 				<br><span class="msg-erro" id="msg-cnpj"></span>
 			  </div>
 		    </div>
