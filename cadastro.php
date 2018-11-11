@@ -74,7 +74,7 @@
 							  echo "<option value='".$uf['sigla']."'>".$uf['sigla']."</option>";
 					  ?>
 			  </select>
-			  <select id="city-select">
+			  <select id="city-select" name="cid">
 				  <option value="">Cidade</option>
 			  </select>
 			 </div>
