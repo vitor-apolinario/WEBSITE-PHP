@@ -14,7 +14,7 @@
 	?>
 	<div class="container">
 		<h1 style="text-align: center;">Cadastre-se</h1>
-		<form action="cadastros/cad_usuario.php" method="post" id="form-cadastro">
+		<form action="cadastros/cad_usuario.php" method="post" onsubmit="return validaCadastro()" id="form-cadastro">
 			<div class="tipo-usuario">
 				<label>SOU:</label>
 			    <label><input type="radio" name="fl_usuario" value="C" id="uC" onchange="tipoUsuario(this.value)" <? if(isset($_GET['c']) && $_GET['c'] == 'c'){echo "checked";}?>>Caminhoneiro</label>
@@ -27,10 +27,11 @@
 		      	  <br><span class="msg-erro" id="msg-nome"></span>
 		      </div>
 		      <div>
-			      <label for="cpfcnpj" class="label-alinhado">CPF/CNPJ:</label>
-			      <input type="text" id="cpfcnpj" name="cpfcnpj" maxlength="13" placeholder="xxxxxxxxxxx">
-		      	  <br><span class="msg-erro" id="msg-cpfcnpj"></span>
+			      <label for="cpf" class="label-alinhado">CPF:</label>
+			      <input type="text" id="cpf" name="cpf" maxlength="12" placeholder="xxxxxxxxxxx">
+		      	  <br><span class="msg-erro" id="msg-cpf"></span>
 		      </div>
+
 		    </div>
 		    <div class="form-item">
 		      <div>
@@ -38,21 +39,11 @@
 			      <input type="email" id="email" name="email" placeholder="fulano@dominio" maxlength="50">
 			      <br><span class="msg-erro" id="msg-email"></span>
 			  </div>
- 			  <div class="local">
-			  	<select onchange="carregaCidades(this.value)" id="uf-select">
-			    	<option value="">UF</option>
-						<?php
-							include "includes/conexao.php";
-							$sql="select sigla from estado";
-							$resultado=mysqli_query($conexao, $sql);
-							while($uf=mysqli_fetch_array($resultado))
-								echo "<option value='".$uf['sigla']."'>".$uf['sigla']."</option>";
-						?>
-			    </select>
-			    <select id="city-select">
-			    	<option value="">Cidade</option>
-			    </select>
-			   </div>
+			  <div>
+				<label for="cnpj" class="label-alinhado">CNPJ:</label>
+				<input type="text" id="cnpj" name="cnpj" maxlength="13" placeholder="xxxxxxxxxxx">
+				<br><span class="msg-erro" id="msg-cnpj"></span>
+			  </div>
 		    </div>
 		    <div class="form-item">
 		        <div>
@@ -72,12 +63,22 @@
 			      <input type="password" id="senha" name="senha" placeholder="Mínimo 6 caracteres">
 			      <br><span class="msg-erro" id="msg-senha"></span>
 		      </div>
-		      <div class="local">
-			      <label>CNH:</label>
-			      <label><input type="radio" name="categoria" value="C" id="c1" checked>C</label>
-			      <label><input type="radio" name="categoria" value="D" id="c2">D</label>
-			      <label><input type="radio" name="categoria" value="E" id="c3">E</label>
-		      </div>
+			  <div class="local">
+			  <select onchange="carregaCidades(this.value)" id="uf-select">
+				  <option value="">UF</option>
+					  <?php
+						  include "includes/conexao.php";
+						  $sql="select sigla from estado";
+						  $resultado=mysqli_query($conexao, $sql);
+						  while($uf=mysqli_fetch_array($resultado))
+							  echo "<option value='".$uf['sigla']."'>".$uf['sigla']."</option>";
+					  ?>
+			  </select>
+			  <select id="city-select">
+				  <option value="">Cidade</option>
+			  </select>
+			 </div>
+
 		    </div>
 		    <div class="form-item">
 		      <div>
@@ -85,13 +86,22 @@
 			      <input type="password" id="senha2" name="senha2" placeholder="Mínimo 6 caracteres">
 		      	  <br><span class="msg-erro" id="msg-senha2"></span>
 		      </div>
-		      <div>
-			      <label for="datanasc" class="label-alinhado">Data:</label>
-			      <input type="date" id="datanasc" name="datanasc">
-		      <br><span class="msg-erro" id="msg-datanasc"></span>
-		      </div>
+			  <div class="local" id = "local">
+				<label>CNH:</label>
+				<label><input type="radio" name="categoria" value="C" id="c1" checked>C</label>
+				<label><input type="radio" name="categoria" value="D" id="c2">D</label>
+				<label><input type="radio" name="categoria" value="E" id="c3">E</label>
+			</div>
 		    </div>
+			<div class="form-item">
+				<div>
+  			      <label for="datanasc" class="label-alinhado">Data:</label>
+  			      <input type="date" id="datanasc" name="datanasc">
+  		      <br><span class="msg-erro" id="msg-datanasc"></span>
+  		      </div>
+			</div>
 		    <div class="form-item">
+
 		    	<div>
 			      <label><input type="checkbox" class="label-alinhado" id="concordo" name="concordo"> Li e estou de acordo com os termos de uso do site</label>
 			      <br><span class="msg-erro" id="msg-concordo"></span>
