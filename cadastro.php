@@ -18,6 +18,7 @@
 		<h1 style="text-align: center;">Cadastre-se</h1>
 		<form action="cadastros/cad_usuario.php" method="post" onsubmit="return validaCadastro()" id="form-cadastro">
 		    <div class="form-item">
+				<input type="hidden" id = "fl_tipo" name = "fl_tipo" value = "<?=$_GET['c']?>">
 		      <div>
 			      <label for="nome" class="label-alinhado">Nome:</label>
 			      <input type="text" id="nome" name="nome" maxlength="50" placeholder="Nome completo">

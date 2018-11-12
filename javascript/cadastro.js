@@ -166,25 +166,28 @@ function validaCadastro(){
 	else{
 		erro_concordo.style.display = 'none';
 	}
-
-	var cpf = document.getElementById("cpf");
-	var erro_cpf = document.getElementById("msg-cpf");
-	if(!validarCPF(cpf.value)){
-		contErro+=1;
-		erro_cpf.innerHTML = "Digite um CPF válido";
-		erro_cpf.style.display = 'block';
-	}else{
-		erro_cpf.style.display = 'none';
+	tipo = document.getElementById("fl_tipo").value;
+	if(tipo == 'c'){
+		var cpf = document.getElementById("cpf");
+		var erro_cpf = document.getElementById("msg-cpf");
+		if(!validarCPF(cpf.value)){
+			contErro+=1;
+			erro_cpf.innerHTML = "Digite um CPF válido";
+			erro_cpf.style.display = 'block';
+		}else{
+			erro_cpf.style.display = 'none';
+		}
 	}
-
-	var cnpj = document.getElementById("cnpj");
-	var erro_cnpj = document.getElementById("msg-cnpj");
-	if(!validarCNPJ(cnpj.value)){
-		contErro+=1;
-		erro_cnpj.innerHTML = "Digite um CNPJ válido";
-		erro_cnpj.style.display = 'block';
-	}else{
-		erro_cnpj.style.display = 'none';
+	if(tipo == 'e'){
+		var cnpj = document.getElementById("cnpj");
+		var erro_cnpj = document.getElementById("msg-cnpj");
+		if(!validarCNPJ(cnpj.value)){
+			contErro+=1;
+			erro_cnpj.innerHTML = "Digite um CNPJ válido";
+			erro_cnpj.style.display = 'block';
+		}else{
+			erro_cnpj.style.display = 'none';
+		}
 	}
 
 	if(contErro > 0)
