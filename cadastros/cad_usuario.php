@@ -4,15 +4,31 @@
 	print_r($_POST);
 	echo "</pre>";
 
-	$fl_usuario= $_POST['fl_tipo'];
-	$nome=       $_POST['nome'];
-	$email=      $_POST['email'];
-	$cid=		 $_POST['cid'];
-	$telefone=   $_POST['telefone'];
-	$endereco=   $_POST['endereco'];
-	$senha1=     $_POST['senha'];
-	$senha2=     $_POST['senha2'];
-	$email=      $_POST['email'];
+	if
+	(
+		!isset($_POST['fl_tipo'])	|| empty($_POST['fl_tipo'])  ||
+		!isset($_POST['nome'])		|| empty($_POST['nome'])	 ||
+		!isset($_POST['email'])		|| empty($_POST['email'])	 ||
+		!isset($_POST['cid'])		|| empty($_POST['cid'])		 ||
+		!isset($_POST['telefone'])	|| empty($_POST['telefone']) ||
+		!isset($_POST['endereco'])	|| empty($_POST['endereco']) ||
+		!isset($_POST['senha'])		|| empty($_POST['senha'])	 ||
+		!isset($_POST['senha2'])	|| empty($_POST['senha2'])	 ||
+		!isset($_POST['email'])		|| empty($_POST['email'])	 ||
+		!isset($_POST['concordo'])  || empty($_POST['concordo'])
+	){
+		echo "<p>Preencha todos os campos do formulário</p>";
+		die();
+	}
+
+	$fl_usuario= trim($_POST['fl_tipo']);
+	$nome=       trim($_POST['nome']);
+	$email=      trim($_POST['email']);
+	$cid=		 trim($_POST['cid']);
+	$telefone=   trim($_POST['telefone']);
+	$endereco=   trim($_POST['endereco']);
+	$senha1=     trim($_POST['senha']);
+	$senha2=     trim($_POST['senha2']);
 	$concordo=   isset($_POST['concordo']) ? 1 : 0;
 
 	if(isset($_POST['cpf']))
@@ -21,11 +37,25 @@
 	if(isset($_POST['cpf']))
 		$cnpj = $_POST['cpf'];
 
-	//-----------aqui devem ser validados os dados------
+	$erros=array();
 
+	//-----------aqui devem ser validados os dados------
+	$nome=filter_var($nome, FILTER_SANITIZE_STRING);
+	if(!preg_match("/^([a-zA-Z' ]+)$/",$nome)){
+		$erros[]=2;
+		echo "insira um formato válido de nome";
+	}
+
+	$email=filter_var($email, FILTER_SANITIZE_EMAIL);
+	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+		$erros[]=3;
+		echo "insira um formato válido de email";
+	}
 	//--------------------------------------------------
 
-
+	if (count($erros)>0) {
+		echo "Houveram erros!";
+	}
 	//---------------somente para debug-----------------
 	$arrayName = array(
 		$fl_usuario,
@@ -36,7 +66,6 @@
 		$endereco,
 		$senha1,
 		$senha2,
-		$email,
 		$concordo
 	);
 	if ($fl_usuario=="c") {

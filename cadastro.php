@@ -82,6 +82,7 @@
 			  </select>
 			  <select id="city-select" name="cid">
 				  <option value="">Cidade</option>
+				  <option value="XXE">XANXERE</option>
 			  </select>
 			 </div>
 
