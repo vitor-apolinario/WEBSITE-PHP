@@ -32,7 +32,6 @@
 			<div class="menu-opcoes">
 				<div><a href="cadastro_frete.php">Cadastro de fretes</a></div>
 				<div><a href="fretes.php">Histórico de fretes</a></div>
-				<!-- <div><a href="#">Como funciona?</a></div> -->
 			</div>
 		</nav>
 	</header>

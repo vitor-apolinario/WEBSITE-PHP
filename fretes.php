@@ -11,7 +11,13 @@
 		<nav id = "nav_desktop">
 			<p id="menu_title">MENU</p>
 			<ul>
-				<a href="cadastro_frete.php"><li>Cadastro de fretes</li></a>
+				<?php  
+				if ($_SESSION['usuario']['fl_tipo']=="E") {
+				?>
+					<a href="cadastro_frete.php"><li>Cadastro de fretes</li></a>
+				<?php  
+				}
+				?>
 				<a href="fretes.php"><li>Histórico de fretes</li></a>
 				<a href="sair.php"><li>Sair</li></a>
 			</ul>

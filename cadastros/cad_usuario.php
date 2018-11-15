@@ -34,23 +34,12 @@
 	if(isset($_POST['cpf']))
 		$cpf = $_POST['cpf'];
 
-	if(isset($_POST['cpf']))
-		$cnpj = $_POST['cpf'];
+	if(isset($_POST['cnpj']))
+		$cnpj = $_POST['cnpj'];
 
 	$erros=array();
 
 	//-----------aqui devem ser validados os dados------
-	$nome=filter_var($nome, FILTER_SANITIZE_STRING);
-	if(!preg_match("/^([a-zA-Z' ]+)$/",$nome)){
-		$erros[]=2;
-		echo "insira um formato válido de nome";
-	}
-
-	$email=filter_var($email, FILTER_SANITIZE_EMAIL);
-	if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-		$erros[]=3;
-		echo "insira um formato válido de email";
-	}
 	//--------------------------------------------------
 
 	if (count($erros)>0) {
@@ -81,13 +70,11 @@
 
 
 	//------------valida email/senha NO BD-----
-	$sql_valida="SELECT *
-				 FROM(
-    				SELECT email, 'E' as fl_tipo FROM empresa
-    				UNION ALL
-    				SELECT email, 'C' as fl_tipo FROM caminhoneiro
-				 ) u
-				 WHERE u.email='$email'";
+	$sql_valida="SELECT 
+					email 
+				FROM 
+					usuario u	
+				WHERE u.email='$email'";
 	$result=mysqli_fetch_array(mysqli_query($conexao, $sql_valida), MYSQLI_ASSOC);
 
 	if(isset($result)){
@@ -110,6 +97,7 @@
 	echo "</pre>";
 	//-----------------------------------------
 
+	$senha1=md5($senha1);
 	//--------insert table usuario-------------
 	echo "<pre>";
 	echo $sql_usuario="INSERT INTO `usuario`(`email`, `senha`, `fl_tipo`)

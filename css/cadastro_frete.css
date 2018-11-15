@@ -200,3 +200,16 @@ header h1{
 .tipo-usuario{
 	padding: 10px 0 10px 70px;
 }
+
+.local-item{
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	margin: 10px 0px 10px 0px;
+}
+
+.local-item div{
+	margin:10px 0px 10px 0px;
+	width: 33%;
+	/*border: 1px solid red;*/
+}

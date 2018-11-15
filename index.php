@@ -12,7 +12,7 @@
 <section class="c2" id="start">
 	<div class="top-wrap">
 		<img src="imagens/png/020-solution.png" class="ico-left" alt="icone representando uma solução.">
-		<h2 class="titulo-section">Junte se a nós!</h2>
+		<h2 class="titulo-section">Junte se a nós! Cadastre-se</h2>
 	</div>
 	<div id= "opcoes_cadastro">
 		<a href="cadastro.php?c=c"><div class="sou">
