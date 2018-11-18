@@ -190,6 +190,25 @@ function validaCadastro(){
 		}
 	}
 
+	var cidade = document.getElementById("city-select");
+	var value = cidade[cidade.selectedIndex].value;
+	var erro_cidade = document.getElementById("msg-cidade");
+	if(value == ""){
+		erro_cidade.innerHTML = "Seleciona um estado e uma cidade";
+		erro_cidade.style.display = 'block';
+	}else {
+		erro_cidade.style.display = 'none';
+	}
+
+	var telefone = document.getElementById("telefone").value;
+	var erro_tele = document.getElementById("msg-tele");
+	if(telefone != parseInt(telefone) || telefone.length < 10){
+		erro_tele.innerHTML = "Digite o número de telefone";
+		erro_tele.style.display = 'block';
+	}else{
+		erro_tele.style.display = 'none';
+	}
+
 	if(contErro > 0)
 		return false;
 }

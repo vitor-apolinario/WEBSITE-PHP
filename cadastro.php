@@ -54,8 +54,8 @@
 		    <div class="form-item">
 		        <div>
 			      <label for="telefone" class="label-alinhado">Telefone:</label>
-			      <input type="text" id="telefone" name="telefone" placeholder="(ddd) x xxxx-xxx" maxlength="50">
-			      <br><span class="msg-erro" id="msg-telefone"></span>
+			      <input type="text" id="telefone" name="telefone" placeholder="(xx) x xxxx-xxx" maxlength="50">
+			      <br><span class="msg-erro" id="msg-tele"></span>
 			    </div>
 			    <div>
 			      <label for="endereco" class="label-alinhado">Endereço:</label>
@@ -82,8 +82,8 @@
 			  </select>
 			  <select id="city-select" name="cid">
 				  <option value="">Cidade</option>
-				  <option value="XXE">XANXERE</option>
 			  </select>
+			  <br><span class="msg-erro" id="msg-cidade"></span>
 			 </div>
 
 		    </div>
