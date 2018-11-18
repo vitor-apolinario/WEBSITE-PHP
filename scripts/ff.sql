@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 06-Nov-2018 às 23:00
+-- Generation Time: 18-Nov-2018 às 17:56
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
 
@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `caminhao` (
-  `model` varchar(30) NOT NULL,
   `placa` varchar(7) NOT NULL,
+  `model` varchar(30) NOT NULL,
   `chass` varchar(17) NOT NULL,
   `docum` varchar(15) NOT NULL,
   `tipo` varchar(3) NOT NULL,
@@ -44,15 +44,22 @@ CREATE TABLE `caminhao` (
 --
 
 CREATE TABLE `caminhoneiro` (
-  `cnh` decimal(10,0) NOT NULL,
+  `cpf` decimal(10,0) NOT NULL,
+  `cnh` char(1) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `fone` varchar(11) NOT NULL,
-  `cpf` decimal(10,0) NOT NULL,
   `email` varchar(30) NOT NULL,
   `dtnasc` date NOT NULL,
   `ender` varchar(50) NOT NULL,
   `ender_cida` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `caminhoneiro`
+--
+
+INSERT INTO `caminhoneiro` (`cpf`, `cnh`, `nome`, `fone`, `email`, `dtnasc`, `ender`, `ender_cida`) VALUES
+('8680686913', 'C', 'Vitor Antonio Apolinário', '4999820095', 'vitorapoli@gmail.com', '1999-06-10', 'Rua Júlio Antonio Gasparetto', 'XAP');
 
 -- --------------------------------------------------------
 
@@ -84,12 +91,19 @@ INSERT INTO `cidade` (`sigla`, `nome`, `estado`) VALUES
 
 CREATE TABLE `empresa` (
   `cnpj` decimal(10,0) NOT NULL,
-  `nome` varchar(30) NOT NULL,
+  `nome` varchar(50) NOT NULL,
   `ender` varchar(30) NOT NULL,
   `fone` varchar(11) NOT NULL,
   `email` varchar(30) NOT NULL,
   `ender_cidad` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `empresa`
+--
+
+INSERT INTO `empresa` (`cnpj`, `nome`, `ender`, `fone`, `email`, `ender_cidad`) VALUES
+('9999999999', 'Apoli representações comerciais', 'julio gasparetto', '3329-3275', 'apoli@yahoo.com', 'XAP');
 
 -- --------------------------------------------------------
 
@@ -119,21 +133,30 @@ INSERT INTO `estado` (`sigla`, `nome`) VALUES
 --
 
 CREATE TABLE `frete` (
+  `ciot` bigint(20) UNSIGNED NOT NULL,
   `valor` decimal(10,0) NOT NULL,
   `peso` decimal(10,0) NOT NULL,
   `volume` decimal(10,0) NOT NULL,
-  `ret_local` varchar(3) NOT NULL,
-  `ent_local` varchar(3) NOT NULL,
+  `ret_local` varchar(50) NOT NULL,
+  `ent_local` varchar(50) NOT NULL,
   `ret_dthr` datetime NOT NULL,
   `ent_dthr` datetime DEFAULT NULL,
-  `ciot` decimal(10,0) NOT NULL,
   `tipo_cami` varchar(3) DEFAULT NULL,
   `contratante` decimal(10,0) NOT NULL,
   `motorista` decimal(10,0) DEFAULT NULL,
   `ret_cidad` varchar(3) NOT NULL,
   `ent_cidad` varchar(3) NOT NULL,
-  `tipo` varchar(3) NOT NULL
+  `tipo` varchar(3) NOT NULL,
+  `obs` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `frete`
+--
+
+INSERT INTO `frete` (`ciot`, `valor`, `peso`, `volume`, `ret_local`, `ent_local`, `ret_dthr`, `ent_dthr`, `tipo_cami`, `contratante`, `motorista`, `ret_cidad`, `ent_cidad`, `tipo`, `obs`) VALUES
+(5, '1335', '15000', '499', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:20:00', NULL, 'NA', '9999999999', '8680686913', 'CBW', 'POA', 'GRN', '500k de carne'),
+(9, '45', '100', '5', '4324234', 'rua dos canisso', '2018-09-17 20:22:00', NULL, 'VUC', '9999999999', NULL, 'POA', 'CBW', 'SEC', 'mudança');
 
 -- --------------------------------------------------------
 
@@ -154,6 +177,7 @@ INSERT INTO `tpcaminhao` (`sig`, `descr`) VALUES
 ('CMB', 'Caminhão Combinado'),
 ('CRT', 'Carreta'),
 ('CTQ', 'Caminhão 3/4'),
+('NA', 'Não especificado'),
 ('TCO', 'Semipesado (Toco)'),
 ('TRK', 'Pesado (Truck)'),
 ('VUC', 'Veículo Urbano de Carga');
@@ -176,8 +200,8 @@ CREATE TABLE `tpcarga` (
 INSERT INTO `tpcarga` (`sigla`, `descr`) VALUES
 ('FIG', 'Frigorífica'),
 ('GRN', 'Granel'),
-('IND', 'Indivisíveis e '),
-('PER', 'perigosa'),
+('IND', 'Indivisíveis'),
+('PER', 'Perigosa'),
 ('SEC', 'Produto seco'),
 ('VIV', 'Viva');
 
@@ -198,10 +222,8 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`email`, `senha`, `fl_tipo`) VALUES
-('', '', 'C'),
-('123@456.com', '123456', 'C'),
-('4324234@gmail.ciom', '123456', 'C'),
-('vitor123', '123', 'C');
+('apoli@yahoo.com', 'e10adc3949ba59abbe56e057f20f883e', 'E'),
+('vitorapoli@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'C');
 
 --
 -- Indexes for dumped tables
@@ -247,6 +269,7 @@ ALTER TABLE `estado`
 --
 ALTER TABLE `frete`
   ADD PRIMARY KEY (`ciot`),
+  ADD UNIQUE KEY `ciot` (`ciot`),
   ADD KEY `idx_frete_tipo_cami` (`tipo_cami`),
   ADD KEY `idx_frete_motorista` (`motorista`),
   ADD KEY `idx_frete_contratante` (`contratante`),
@@ -271,6 +294,16 @@ ALTER TABLE `tpcarga`
 --
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`email`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `frete`
+--
+ALTER TABLE `frete`
+  MODIFY `ciot` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables
