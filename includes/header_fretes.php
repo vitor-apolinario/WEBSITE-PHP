@@ -1,3 +1,9 @@
+<?php  
+	@session_start();
+	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO, 
+	// E EXIBIR A LISTA DE FRETES DE ACORDO E TAMBÉM ADICIONAR
+	// UMA OPCAO CASO SEJA EMPRESA, PARA ARRUMAR OS DADOS
+?>
 <?php
 	include "includes/conexao.php";
 	echo "<pre>";

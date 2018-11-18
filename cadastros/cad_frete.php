@@ -30,7 +30,7 @@
 	$volume=      trim($_POST['volume']);
 	$valor=       trim($_POST['valor']);
 	$tipo=        $_POST['tipo'];
-	$tipo_cami=   $_POST['tipo_cami'];
+	$tipo_cami=   $_POST['tipo_cami'] == "NA" ? null : $_POST['tipo_cami'];
 	$obs=         trim($_POST['obs']);
 	$ret_dthr=    $_POST['ret_dthr'];
 	$contratante= $_POST['contratante'];
@@ -76,10 +76,7 @@
 	$stmt->bindParam(11, $ret_dthr);
 	$stmt->bindParam(12, $contratante);
 	if ($stmt->execute()) {
-		echo "inserido com sucesso";
+		header("Location: ../fretes.php");
 	}else
 		echo "ocorreu um erro ao inserir";
-
-
-
 ?>
