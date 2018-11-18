@@ -25,11 +25,12 @@
 			<h2 class="titulo-section" style="width: 100%;">Lista de fretes</h2>
 			<?php
 				if($_SESSION['usuario']['fl_tipo']=="E"){
-					echo $cond="contratante = " . $_SESSION['usuario']['dados']['cnpj'];
+					$cond="contratante = " . $_SESSION['usuario']['dados']['cnpj'];
 				}else{
-					echo $cond="motorista is null";
+					$cond="motorista is null";
 				}
 				$sql="select
+						f.ciot,
 					    concat(cretirada.nome, ' - ', estador.nome) as cid_retirada,
 					    concat(centrega.nome,  ' - ', estadoe.nome) as cid_entrega,
 					    f.peso,
@@ -59,11 +60,14 @@
 					where f.ent_dthr is null and " . $cond;			
 				$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
 				$rs = $con->prepare($sql);
-				if($rs->execute())
-					echo "executou select";
+				$rs->execute();
 				while($row = $rs->fetch(PDO::FETCH_OBJ)){
 			?>
 			<div class="frete">
+				<?php 
+				if($_SESSION['usuario']['fl_tipo']=="E" && $row->nome == null)
+				 echo "<a href='cadastros/del_frete.php?ciot=$row->ciot'><span class='cancelar-frete'><strong>X</strong></span></a>";
+				?>
 				<div class="frete-imagem">
 					<a href="#">
 						<figure>
@@ -75,10 +79,10 @@
 				<div class="info-wrapper">
 					<p>De: <?=$row->cid_retirada;?></p>
 					<p>Até: <?=$row->cid_entrega;?></p>
-					<p>Peso: <?=$row->peso;?></p>
+					<p>Peso: <?=$row->peso;?>kgs</p>
 					<p>Volume: <?=$row->volume;?>m³</p>
 					<p>Caminhão: <?=$row->tpc;?></p>
-					<p>Ramo: <?=$row->descr;?></p>
+					<p>Tipo de carga: <?=$row->descr;?></p>
 				</div>
 				<div class="info-wrapper2">
 					<p>Informações adicionais: <?=$row->obs;?>.</p>
@@ -87,6 +91,7 @@
 				if($_SESSION['usuario']['fl_tipo']=="E") { 
 					if ($row->nome == null) {
 						echo "<div class='status-frete-pendente'>Entrega pendente</div>";
+						echo "<a class='linke' href='cadastro_frete.php?ciot=" . $row->ciot  . "'><div class='editar-frete'>Editar informações</div></a>";
 					}else
 						echo "<div class='status-frete-andamento'>Entrega em andamento</div>";
 				}else{

@@ -16,7 +16,8 @@
 		!isset($_POST['tipo_cami'])   || empty($_POST['tipo_cami'])  ||
 		!isset($_POST['obs'])         || empty($_POST['obs'])        ||
 		!isset($_POST['ret_dthr'])    || empty($_POST['ret_dthr'])   ||
-		!isset($_POST['contratante']) || empty($_POST['contratante']) 
+		!isset($_POST['contratante']) || empty($_POST['contratante'])||
+		!isset($_POST['ciot'])        || empty($_POST['ciot']) 
 	){
 		echo "<p>Preencha todos os campos do formulário</p>";
 		die();
@@ -34,6 +35,7 @@
 	$obs=         trim($_POST['obs']);
 	$ret_dthr=    $_POST['ret_dthr'];
 	$contratante= $_POST['contratante'];
+	$ciot=        $_POST['ciot'];
 
 	$arrayName = array(
 		$ret_cidad,
@@ -47,22 +49,15 @@
 		$tipo_cami,
 		$obs,
 		$ret_dthr,
-		$contratante
+		$contratante,
+		$ciot
 	);
 	echo "<pre>";
 	print_r($arrayName);
 	echo "</pre>";
 
-	// exemplo de select usando PDO
-	// $con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
-	// $rs = $con->query("select sigla, descr from tpcarga");
-	// while($row = $rs->fetch(PDO::FETCH_OBJ)){
- 	// 	echo $row->sigla . " - ";
- 	// 	echo $row->descr . "<br/><hr/>";
-	// }
-
 	$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
-	$stmt = $con->prepare("INSERT INTO frete (ret_cidad, ret_local, ent_cidad, ent_local, peso, volume, valor, tipo, tipo_cami, obs, ret_dthr, contratante) values (?,?,?,?,?,?,?,?,?,?,?,?)");
+	$stmt = $con->prepare("update frete set ret_cidad=?, ret_local=?, ent_cidad=?, ent_local=?, peso=?, volume=?, valor=?, tipo=?, tipo_cami=?, obs=?, ret_dthr=?, contratante=? where ciot=?");
 	$stmt->bindParam(1 , $ret_cidad);
 	$stmt->bindParam(2 , $ret_local);
 	$stmt->bindParam(3 , $ent_cidad);
@@ -75,6 +70,7 @@
 	$stmt->bindParam(10, $obs);
 	$stmt->bindParam(11, $ret_dthr);
 	$stmt->bindParam(12, $contratante);
+	$stmt->bindParam(13, $ciot);
 	if ($stmt->execute()) {
 		header("Location: ../fretes.php");
 	}else
