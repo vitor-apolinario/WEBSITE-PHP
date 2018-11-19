@@ -6,42 +6,42 @@ USE ff;
 
 DROP USER IF EXISTS 'admrent'@'localhost';
 
-CREATE USER 'admrent'@'localhost' IDENTIFIED BY '12345'; 
+CREATE USER 'admrent'@'localhost' IDENTIFIED BY '12345';
 
 GRANT SELECT, INSERT, UPDATE, DELETE ON rent.* TO 'admrent'@'localhost';
 
 -----------------------------------------TPCAMINHAO--------------------------------------------------
-CREATE TABLE ff.tpcaminhao ( 
+CREATE TABLE ff.tpcaminhao (
 	sig varchar(3)  NOT NULL,
 	descr varchar(50)  NOT NULL  ,
 	CONSTRAINT pk_tpcaminhao_sigla PRIMARY KEY ( sig )
 ) engine=InnoDB;
 
 ------------------------------------------ESTADO--------------------------------------------------
-CREATE TABLE ff.estado ( 
+CREATE TABLE ff.estado (
 	sigla varchar(3) NOT NULL  ,
 	nome varchar(50)  NOT NULL  ,
 	CONSTRAINT pk_estado_sigla PRIMARY KEY ( sigla )
 ) engine=InnoDB;
 
 --------------------------------------------CIDADE------------------------------------------------
-CREATE TABLE ff.cidade ( 
+CREATE TABLE ff.cidade (
 	sigla varchar(3) NOT NULL  ,
 	nome varchar(50)  NOT NULL  ,
 	estado varchar(3)  NOT NULL  ,
 	CONSTRAINT pk_cidade_sigla PRIMARY KEY ( sigla )
- ) engine=InnoDB
+) engine=InnoDB;
 
 CREATE INDEX idx_cidade_estado ON ff.cidade ( estado );
 
 ALTER TABLE ff.cidade ADD CONSTRAINT fk_cidade_estado FOREIGN KEY ( estado ) REFERENCES ff.estado( sigla ) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --------------------------------------------CAMINHONEIRO----------------------------------------------------
-CREATE TABLE ff.caminhoneiro ( 
+CREATE TABLE ff.caminhoneiro (
 	cnh                  numeric  NOT NULL  ,
 	nome                 varchar(50)  NOT NULL  ,
 	fone                 varchar(11)  NOT NULL  ,
-	cpf                  numeric  NOT NULL  ,
+	cpf                  varchar(11)  NOT NULL  ,
 	email                varchar(30)  NOT NULL  ,
 	dtnasc               date NOT NULL  ,
 	ender                varchar(50)  NOT NULL  ,
@@ -53,17 +53,15 @@ CREATE INDEX idx_caminhoneiro_ender_cida ON ff.caminhoneiro ( ender_cida );
 
 ALTER TABLE ff.caminhoneiro ADD CONSTRAINT fk_caminhoneiro_cidade FOREIGN KEY ( ender_cida ) REFERENCES ff.cidade( sigla ) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-ALTER TABLE ff.caminhoneiro ADD CONSTRAINT fk_caminhoneiro_cidade FOREIGN KEY ( ender_cida ) REFERENCES ff.cidade( sigla ) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
 
 -----------------------------------------CAMINHAO-----------------------------------------------
-CREATE TABLE ff.caminhao ( 
+CREATE TABLE ff.caminhao (
 	model                varchar(30)  NOT NULL  ,
 	placa                varchar(7)  NOT NULL  ,
 	chass                varchar(17)  NOT NULL  ,
 	docum                varchar(15)  NOT NULL  ,
 	tipo                 varchar(3)  NOT NULL  ,
-	motorista            numeric  NOT NULL  ,
+	motorista            varchar(11)  NOT NULL  ,
 	CONSTRAINT pk_truck_plate PRIMARY KEY ( placa )
  ) engine=InnoDB;
 
@@ -77,16 +75,16 @@ ALTER TABLE ff.caminhao ADD CONSTRAINT fk_caminhao_motorista FOREIGN KEY ( motor
 
 
 -----------------------------------------TPCARGA---------------------------------------------------
-CREATE TABLE ff.tpcarga ( 
-	sigla varchar(3) NOT NULL , 
-	descr varchar(15) NOT NULL , 
-	CONSTRAINT pk_tpcarga_sigla PRIMARY KEY ( sigla ) 
+CREATE TABLE ff.tpcarga (
+	sigla varchar(3) NOT NULL ,
+	descr varchar(15) NOT NULL ,
+	CONSTRAINT pk_tpcarga_sigla PRIMARY KEY ( sigla )
 ) engine=InnoDB;
 
 
 ----------------------------------------EMPRESA----------------------------------------------------
-CREATE TABLE ff.empresa ( 
-	cnpj                 numeric  NOT NULL  ,
+CREATE TABLE ff.empresa (
+	cnpj                 varchar(14)  NOT NULL  ,
 	nome                 varchar(30)  NOT NULL  ,
 	ender                varchar(30)  NOT NULL  ,
 	fone                 varchar(11)  NOT NULL  ,
@@ -101,7 +99,7 @@ ALTER TABLE ff.empresa ADD CONSTRAINT fk_empresa_cidade FOREIGN KEY ( ender_cida
 
 
 -----------------------------------------FRETE-----------------------------------------------------
-CREATE TABLE ff.frete ( 
+CREATE TABLE ff.frete (
     valor                numeric  NOT NULL  ,
     peso                 numeric  NOT NULL  ,
     volume               numeric  NOT NULL  ,
@@ -111,13 +109,13 @@ CREATE TABLE ff.frete (
     ent_dthr             datetime    ,
     ciot                 numeric  NOT NULL  ,
     tipo_cami            varchar(3)    ,
-    contratante          numeric  NOT NULL  ,
-    motorista            numeric    ,
+    contratante          varchar(14)  NOT NULL  ,
+    motorista            varchar(11)    ,
     ret_cidad            varchar(3)  NOT NULL  ,
     ent_cidad            varchar(3)  NOT NULL  ,
     tipo                 varchar(3)  NOT NULL  ,
     CONSTRAINT pk_frete_ciot PRIMARY KEY ( ciot )
- ) engine=InnoDB
+) engine=InnoDB;
 
 CREATE INDEX idx_frete_tipo_cami ON ff.frete ( tipo_cami );
 
@@ -145,22 +143,22 @@ ALTER TABLE ff.frete ADD CONSTRAINT fk_frete_tpcarga FOREIGN KEY ( tipo ) REFERE
 
 -------------------------------------------- USUARIO ----------------------------------------------------
 
-CREATE TABLE `ff`.`usuario` ( 
-	`email` VARCHAR(50) NOT NULL , 
-	`senha` VARCHAR(50) NOT NULL , 
-	`fl_tipo` VARCHAR(1) NOT NULL , 
+CREATE TABLE `ff`.`usuario` (
+	`email` VARCHAR(50) NOT NULL ,
+	`senha` VARCHAR(50) NOT NULL ,
+	`fl_tipo` VARCHAR(1) NOT NULL ,
 	PRIMARY KEY (`email`)
 ) ENGINE = InnoDB;
 
 -------------------------------------------- INSERTS ----------------------------------------------------
 
-INSERT INTO `tpcaminhao` (`sig`, `descr`) VALUES 
+INSERT INTO `tpcaminhao` (`sig`, `descr`) VALUES
 	('VUC', 'Veículo Urbano de Carga'),
 	('CTQ','Caminhão 3/4'),
 	('TCO','Semipesado (Toco)'),
 	('TRK','Pesado (Truck)'),
 	('CRT','Carreta'),
-	('CMB','Caminhão Combinado')
+	('CMB','Caminhão Combinado');
 
 INSERT INTO `tpcarga`(`sigla`, `descr`) VALUES
 	('FIG','Frigorífica'),
@@ -168,16 +166,16 @@ INSERT INTO `tpcarga`(`sigla`, `descr`) VALUES
 	('VIV','Viva'),
 	('IND','Indivisíveis e excepcionais de grande porte'),
 	('SEC','Produto seco'),
-	('PER','perigosa')
+	('PER','perigosa');
 
 INSERT INTO `estado`(`sigla`, `nome`) VALUES
 	('SC','Santa Catarina'),
 	('RS','Rio Grande do Sul'),
 	('PR','Paraná'),
-	('SP','São Paulo')
+	('SP','São Paulo');
 
-INSERT INTO `cidade`(`sigla`, `nome`, `estado`) VALUES 
+INSERT INTO `cidade`(`sigla`, `nome`, `estado`) VALUES
 	('XAP','Chapecó','SC'),
 	('POA','Porto Alegre','RS'),
 	('CBW','Curitiba','PR'),
-	('SPO','São Paulo','SP')
+	('SPO','São Paulo','SP');
