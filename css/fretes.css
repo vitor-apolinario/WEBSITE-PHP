@@ -339,7 +339,7 @@ label[for="controle-menu"]{
 	background-color: yellow;
 	text-transform: uppercase;
 	border-radius: 10px;
-	/*cursor: pointer;*/
+	cursor: pointer;
 }
 
 .status-frete-liberado{

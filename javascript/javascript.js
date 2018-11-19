@@ -44,3 +44,12 @@ function pegarFrete(ciot, cpf){
 		xhttp.send();
 	}
 }
+
+function finalizarFrete(ciot){
+	var x = document.getElementById("andamento"+ciot);
+	if(x.innerHTML=="Entrega em andamento"){
+		x.innerHTML="Finalizar entrega!";
+	}else
+		x.innerHTML="Entrega em andamento";
+
+}

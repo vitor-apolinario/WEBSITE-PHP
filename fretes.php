@@ -78,7 +78,7 @@
 			?>
 			<div class="frete">
 				<?php 
-				if($_SESSION['usuario']['fl_tipo']=="E" && $row->nome == null)
+				if($_SESSION['usuario']['fl_tipo']=="E" && $row->nomec == null)
 				 echo "<a href='cadastros/del_frete.php?ciot=$row->ciot'><span class='cancelar-frete'><strong>X</strong></span></a>";
 				?>
 				<div class="frete-imagem">
@@ -106,7 +106,7 @@
 						echo "<div class='status-frete-pendente'>Entrega pendente</div>";
 						echo "<a class='linke' href='cadastro_frete.php?ciot=" . $row->ciot  . "'><div class='editar-frete'>Editar informações</div></a>";
 					}else
-						echo "<div class='status-frete-andamento'>Entrega em andamento</div>";
+						echo "<a class='linke' href='cadastros/finalizar_frete.php?ciot=".$row->ciot."'><div id='andamento$row->ciot' class='status-frete-andamento' onmouseenter='finalizarFrete($row->ciot)' onmouseleave='finalizarFrete($row->ciot)'>Entrega em andamento</div></a>";
 				}else{
 					if($row->cpf != $_SESSION['usuario']['dados']['cpf']){
 						$cpf=$_SESSION['usuario']['dados']['cpf'];
