@@ -1,8 +1,125 @@
 <?php
-	@session_start();
-	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO,
-	// E EXIBIR A LISTA DE FRETES DE ACORDO E TAMBÉM ADICIONAR
-	// UMA OPCAO CASO SEJA EMPRESA, PARA ARRUMAR OS DADOS
+	@session_start;
+	if(isset($_SESSION['usuario'])){
+		header("Location: fretes.php");
+	}
+	if(isset($_POST['cadastrar'])){
+		echo "<pre>";
+		print_r($_POST);
+		echo "</pre>";
+
+		$fl_usuario= trim($_POST['fl_tipo']);
+		$nome=       trim($_POST['nome']);
+		$email=      trim($_POST['email']);
+		$cid=		 trim($_POST['cid']);
+		$telefone=   trim($_POST['telefone']);
+		$endereco=   trim($_POST['endereco']);
+		$senha1=     trim($_POST['senha']);
+		$senha2=     trim($_POST['senha2']);
+		$concordo=   isset($_POST['concordo']) ? 1 : 0;
+
+		$erros=array();
+		if(isset($_POST['cpf'])){
+			$cpf = $_POST['cpf'];
+			if(strlen($cpf) != 11){
+				$erros[] = "Digite um CPF valido";
+			}
+		}
+
+
+		if(isset($_POST['cnpj'])){
+			$cnpj = $_POST['cnpj'];
+			if(strlen($cnpj) != 14){
+				$erros[] = "Digite um CNPJ valido";
+			}
+		}
+		if (empty($nome) || !strstr($nome," "))
+			$erros[] = "Digite seu nome completo";
+
+		if(empty($email) || !(filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)))
+	           $erros[] = "Digite um email válido";
+		if(empty($cid))
+			$erros[] = "Selecione uma cidade";
+		if(empty($telefone))
+			$erros[] = "Digite um telefone";
+		if(empty($endereco))
+	     	$erros[] = "Digite um endereço";
+		if(strlen($senha1) < 6)
+			$erros[] = "A senha deve ter no mínimo 6 caracteres";
+		else{
+			if($senha1 != $senha2)
+				$erros[] = "As senhas não conferem";
+		}
+		if(!($concordo))
+			$erros[] = "Você deve concordar com os termos do site";
+		if (count($erros) == 0) {
+			include_once "includes/conexao.php";
+			$arrayName = array(
+				$fl_usuario,
+				$nome,
+				$email,
+				$cid,
+				$telefone,
+				$endereco,
+				$senha1,
+				$senha2,
+				$concordo
+			);
+			if ($fl_usuario=="c") {
+				$categoria=$_POST['categoria'];
+				$datanasc=$_POST['datanasc'];
+				$arrayName[]=$categoria;
+				$arrayName[]=$datanasc;
+			}
+			echo "<pre>";
+			print_r($arrayName);
+			echo "</pre>";
+			//--------------------------------------------------
+
+
+			//------------valida email/senha NO BD-----
+			$sql_valida="SELECT
+							email
+						FROM
+							usuario u
+						WHERE u.email='$email'";
+			$result=mysqli_fetch_array(mysqli_query($conexao, $sql_valida), MYSQLI_ASSOC);
+
+			if(isset($result)){
+				echo "email já cadastrado, query não será executada!";
+				die();
+			}
+			//-----------------------------------------
+
+			//---------insert cam/emp------------------
+			echo "<pre>";
+			if ($_POST['fl_tipo']=="c"){
+				echo $sql_camemp="INSERT INTO `caminhoneiro`(`cnh`, `nome`, `fone`, `cpf`, `email`, `dtnasc`, `ender`, `ender_cida`)
+				VALUES ('$categoria', '$nome', '$telefone', $cpf, '$email','$datanasc', '$endereco', '$cid');";
+				$type="C";
+			}else{
+				echo $sql_camemp="INSERT INTO `empresa`(`cnpj`, `nome`, `ender`, `fone`, `email`, `ender_cidad`)
+				VALUES ($cnpj, '$nome', '$endereco', '$telefone', '$email', '$cid');";
+				$type="E";
+			}
+			echo "</pre>";
+			//-----------------------------------------
+
+			$senha1=md5($senha1);
+			//--------insert table usuario-------------
+			echo "<pre>";
+			echo $sql_usuario="INSERT INTO `usuario`(`email`, `senha`, `fl_tipo`)
+			VALUES ('$email', '$senha1', '$type');";
+			echo "</pre>";
+			//-----------------------------------------
+
+			mysqli_query($conexao, $sql_usuario);
+			mysqli_query($conexao, $sql_camemp);
+			//header("Location: ../index.php");
+			//---------------somente para debug-----------------
+		}
+
+	}
 ?>
 
 <?php
@@ -15,13 +132,24 @@
 		if (!isset($_GET['ok'])){
 	?>
 	<div class="container">
+
 		<h1 style="text-align: center;">Cadastre-se</h1>
-		<form action="cadastros/cad_usuario.php" method="post" onsubmit="return validaCadastro()" id="form-cadastro">
+		<?php
+		// caso houver, exibe os erros
+		if(isset($erros) and count($erros) > 0){
+			echo "<ul>";
+			foreach ($erros as $erro) {
+				echo "<li style='color:red'>$erro</li>";
+			}
+			echo "</ul>";
+		}
+		?>
+		<form action="" method="post" onsubmit="return validaCadastro()" id="form-cadastro">
 		    <div class="form-item">
 				<input type="hidden" id = "fl_tipo" name = "fl_tipo" value = "<?=$_GET['c']?>">
 		      <div>
 			      <label for="nome" class="label-alinhado">Nome:</label>
-			      <input type="text" id="nome" name="nome" maxlength="50" placeholder="Nome completo">
+			      <input type="text" id="nome" name="nome" maxlength="50" value="<?=isset($nome) ? $nome : '';?>" placeholder="Nome completo">
 		      	  <br><span class="msg-erro" id="msg-nome"></span>
 		      </div>
 			  <?php
@@ -29,7 +157,7 @@
 			  ?>
 		      <div>
 			      <label for="cpf" class="label-alinhado">CPF:</label>
-			      <input type="text" id="cpf" name="cpf" maxlength="12" placeholder="xxxxxxxxxxx">
+			      <input type="text" id="cpf" name="cpf" maxlength="12" value="<?=isset($cpf) ? $cpf: '';?>" placeholder="xxxxxxxxxxx">
 		      	  <br><span class="msg-erro" id="msg-cpf"></span>
 		      </div>
 		  	<?php } ?>
@@ -37,7 +165,7 @@
 		    <div class="form-item">
 		      <div>
 			      <label for="email" class="label-alinhado">E-mail:</label>
-			      <input type="email" id="email" name="email" placeholder="fulano@dominio" maxlength="50">
+			      <input type="email" id="email" name="email" value="<?=isset($email) ? $email : '';?>" placeholder="fulano@dominio" maxlength="50">
 			      <br><span class="msg-erro" id="msg-email"></span>
 			  </div>
 			  <?php
@@ -45,7 +173,7 @@
 			  ?>
 			  <div>
 				<label for="cnpj" class="label-alinhado">CNPJ:</label>
-				<input type="text" id="cnpj" name="cnpj" maxlength="14" placeholder="xxxxxxxxxxx">
+				<input type="text" id="cnpj" name="cnpj" value="<?=isset($cnpj) ? $cnpj : '';?>" maxlength="14" placeholder="xxxxxxxxxxx">
 				<br><span class="msg-erro" id="msg-cnpj"></span>
 			  </div>
 			  <?php } ?>
@@ -54,12 +182,12 @@
 		    <div class="form-item">
 		        <div>
 			      <label for="telefone" class="label-alinhado">Telefone:</label>
-			      <input type="text" id="telefone" name="telefone" placeholder="(xx) x xxxx-xxx" maxlength="50">
+			      <input type="text" id="telefone" name="telefone" value="<?=isset($telefone) ? $telefone : '';?>" placeholder="(xx) x xxxx-xxx" maxlength="50">
 			      <br><span class="msg-erro" id="msg-tele"></span>
 			    </div>
 			    <div>
 			      <label for="endereco" class="label-alinhado">Endereço:</label>
-			      <input type="text" id="endereco" name="endereco" placeholder="Rua, número, complemento" maxlength="50">
+			      <input type="text" id="endereco" name="endereco" value="<?=isset($endereco) ? $endereco : '';?>" placeholder="Rua, número, complemento" maxlength="50">
 			      <br><span class="msg-erro" id="msg-endereco"></span>
 			  </div>
 		    </div>
@@ -82,6 +210,7 @@
 			  </select>
 			  <select id="city-select" name="cid">
 				  <option value="">Cidade</option>
+				  <option value="POA">Porto Alegre</option>
 			  </select>
 			  <br><span class="msg-erro" id="msg-cidade"></span>
 			 </div>
@@ -118,12 +247,12 @@
 		    <div class="form-item">
 
 		    	<div>
-			      <label><input type="checkbox" class="label-alinhado" id="concordo" name="concordo"> Li e estou de acordo com os termos de uso do site</label>
+			      <label><input type="checkbox" class="label-alinhado" id="concordo" name="concordo" <?=isset($_POST['concordo']) ? 'checked' : '';?>> Li e estou de acordo com os termos de uso do site</label>
 			      <br><span class="msg-erro" id="msg-concordo"></span>
 			    </div>
 		    </div>
 			<div class="form-buttons">
-			   <input type="submit" id="botao" value="Confirmar">
+			   <input type="submit" id="botao" name = "cadastrar" value="Confirmar">
 			   <input type="reset" id="botao-limpar" value="Limpar">
 			</div>
 		</form>
