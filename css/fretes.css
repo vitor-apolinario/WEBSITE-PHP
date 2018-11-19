@@ -326,7 +326,7 @@ label[for="controle-menu"]{
 	justify-content: center;
 	background-color: red;
 	text-transform: uppercase;
-	border-radius: 10px;
+	cursor: pointer;
 }
 
 .status-frete-andamento{
@@ -339,6 +339,7 @@ label[for="controle-menu"]{
 	background-color: yellow;
 	text-transform: uppercase;
 	border-radius: 10px;
+	/*cursor: pointer;*/
 }
 
 .status-frete-liberado{
@@ -351,6 +352,7 @@ label[for="controle-menu"]{
 	background-color: green;
 	text-transform: uppercase;
 	border-radius: 10px;
+	cursor: pointer;
 }
 
 .editar-frete{

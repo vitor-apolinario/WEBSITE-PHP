@@ -87,7 +87,7 @@
 	echo "<pre>";
 	if ($_POST['fl_tipo']=="c"){
 		echo $sql_camemp="INSERT INTO `caminhoneiro`(`cnh`, `nome`, `fone`, `cpf`, `email`, `dtnasc`, `ender`, `ender_cida`)
-		VALUES ('$categoria', '$nome', '$telefone', $cpf, '$email','$datanasc', '$endereco', '$cid');";
+		VALUES ('$categoria', '$nome', '$telefone', '$cpf', '$email','$datanasc', '$endereco', '$cid');";
 		$type="C";
 	}else{
 		echo $sql_camemp="INSERT INTO `empresa`(`cnpj`, `nome`, `ender`, `fone`, `email`, `ender_cidad`)

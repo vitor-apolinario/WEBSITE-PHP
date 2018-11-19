@@ -24,10 +24,21 @@
 		<div id = "fretes_list">
 			<h2 class="titulo-section" style="width: 100%;">Lista de fretes</h2>
 			<?php
+				$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
 				if($_SESSION['usuario']['fl_tipo']=="E"){
 					$cond="contratante = " . $_SESSION['usuario']['dados']['cnpj'];
 				}else{
-					$cond="motorista is null";
+					//verifica se o motorista tem um frete em andamento
+					$rs = $con->prepare("select * from frete where ent_dthr is null and motorista = ?");
+					$rs->bindParam(1, $_SESSION['usuario']['dados']['cpf']);
+					if ($rs->execute()) {					
+						if($rs->rowCount()){
+							//se sim, ele só pode visualizá-lo
+							$cond="f.motorista = '" . $_SESSION['usuario']['dados']['cpf'] . "' limit 1";
+						}else
+							//senão, ele só pode visualizar os disponíveis
+							$cond="motorista is null";
+					}					
 				}
 				$sql="select
 						f.ciot,
@@ -39,7 +50,8 @@
 					    COALESCE(tpc.descr, 'Não especificado') as tpc,
 					    e.nome,
 					    f.obs,
-					    c.nome
+					    c.nome as nomec,
+					    cpf
 					from frete f 
 					left join tpcaminhao tpc on 
 					    tpc.sig=f.tipo_cami
@@ -57,8 +69,9 @@
 					    tpcarga.sigla=f.tipo
 					left join caminhoneiro c on
 						c.cpf=f.motorista
-					where f.ent_dthr is null and " . $cond;			
-				$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+					where 
+						f.ent_dthr is null 
+						and " . $cond;
 				$rs = $con->prepare($sql);
 				$rs->execute();
 				while($row = $rs->fetch(PDO::FETCH_OBJ)){
@@ -89,19 +102,26 @@
 				</div>
 				<?php
 				if($_SESSION['usuario']['fl_tipo']=="E") { 
-					if ($row->nome == null) {
+					if ($row->nomec == null) {
 						echo "<div class='status-frete-pendente'>Entrega pendente</div>";
 						echo "<a class='linke' href='cadastro_frete.php?ciot=" . $row->ciot  . "'><div class='editar-frete'>Editar informações</div></a>";
 					}else
 						echo "<div class='status-frete-andamento'>Entrega em andamento</div>";
 				}else{
-					echo "<div class='status-frete-liberado'>Pegar frete</div>";
+					if($row->cpf != $_SESSION['usuario']['dados']['cpf']){
+						$cpf=$_SESSION['usuario']['dados']['cpf'];
+				?>					
+						<div class="status-frete-liberado" id="pegar<?=$row->ciot?>" onclick="pegarFrete(<?=$row->ciot?>, <?="'".$cpf."'"?>)" >Pegar frete</div>
+				<?php
+					}else{
+						echo "<div class='status-frete-andamento'>Realizando entrega...</div>";
+					}
 				}
 				?>
 			</div>
 			<?php 
 			} 
-			?>	
+			?>
 		</div>
 	</div>
 <?php 

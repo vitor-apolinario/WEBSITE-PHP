@@ -3,5 +3,6 @@
 	</footer>	
 	<script src="javascript/login.js"></script>
 	<script src="javascript/cadastro.js"></script>
+	<script src="javascript/javascript.js"></script>
 </body>
 </html>
