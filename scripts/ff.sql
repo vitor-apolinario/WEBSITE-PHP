@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 18-Nov-2018 às 17:56
+-- Generation Time: 19-Nov-2018 às 14:12
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
 
@@ -34,7 +34,7 @@ CREATE TABLE `caminhao` (
   `chass` varchar(17) NOT NULL,
   `docum` varchar(15) NOT NULL,
   `tipo` varchar(3) NOT NULL,
-  `motorista` decimal(10,0) NOT NULL
+  `motorista` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -44,7 +44,7 @@ CREATE TABLE `caminhao` (
 --
 
 CREATE TABLE `caminhoneiro` (
-  `cpf` decimal(10,0) NOT NULL,
+  `cpf` varchar(11) NOT NULL,
   `cnh` char(1) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `fone` varchar(11) NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE `caminhoneiro` (
 --
 
 INSERT INTO `caminhoneiro` (`cpf`, `cnh`, `nome`, `fone`, `email`, `dtnasc`, `ender`, `ender_cida`) VALUES
-('8680686913', 'C', 'Vitor Antonio Apolinário', '4999820095', 'vitorapoli@gmail.com', '1999-06-10', 'Rua Júlio Antonio Gasparetto', 'XAP');
+('8680686913', 'C', 'Vitor Antonio Apolinário', '3329-3275', 'vitorapoli@gmail.com', '2018-06-10', 'julio gasparetto', 'POA');
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,7 @@ INSERT INTO `cidade` (`sigla`, `nome`, `estado`) VALUES
 --
 
 CREATE TABLE `empresa` (
-  `cnpj` decimal(10,0) NOT NULL,
+  `cnpj` varchar(14) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `ender` varchar(30) NOT NULL,
   `fone` varchar(11) NOT NULL,
@@ -103,7 +103,7 @@ CREATE TABLE `empresa` (
 --
 
 INSERT INTO `empresa` (`cnpj`, `nome`, `ender`, `fone`, `email`, `ender_cidad`) VALUES
-('9999999999', 'Apoli representações comerciais', 'julio gasparetto', '3329-3275', 'apoli@yahoo.com', 'XAP');
+('75639534000161', 'Apoli representações comerciais', 'julio gasparetto', '33293275', 'apoli@yahoo.com', 'CBW');
 
 -- --------------------------------------------------------
 
@@ -142,8 +142,8 @@ CREATE TABLE `frete` (
   `ret_dthr` datetime NOT NULL,
   `ent_dthr` datetime DEFAULT NULL,
   `tipo_cami` varchar(3) DEFAULT NULL,
-  `contratante` decimal(10,0) NOT NULL,
-  `motorista` decimal(10,0) DEFAULT NULL,
+  `contratante` varchar(14) NOT NULL,
+  `motorista` varchar(11) DEFAULT NULL,
   `ret_cidad` varchar(3) NOT NULL,
   `ent_cidad` varchar(3) NOT NULL,
   `tipo` varchar(3) NOT NULL,
@@ -155,8 +155,8 @@ CREATE TABLE `frete` (
 --
 
 INSERT INTO `frete` (`ciot`, `valor`, `peso`, `volume`, `ret_local`, `ent_local`, `ret_dthr`, `ent_dthr`, `tipo_cami`, `contratante`, `motorista`, `ret_cidad`, `ent_cidad`, `tipo`, `obs`) VALUES
-(5, '1335', '15000', '499', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:20:00', NULL, 'NA', '9999999999', '8680686913', 'CBW', 'POA', 'GRN', '500k de carne'),
-(9, '45', '100', '5', '4324234', 'rua dos canisso', '2018-09-17 20:22:00', NULL, 'VUC', '9999999999', NULL, 'POA', 'CBW', 'SEC', 'mudança');
+(12, '321', '123', '123', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:20:00', NULL, 'CMB', '75639534000161', NULL, 'CBW', 'POA', 'FIG', '21323132345ergdfgdfg'),
+(13, '321', '123', '123', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:20:00', NULL, 'CMB', '75639534000161', NULL, 'CBW', 'POA', 'FIG', '21323132345ergdfgdfg');
 
 -- --------------------------------------------------------
 
@@ -303,7 +303,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `frete`
 --
 ALTER TABLE `frete`
-  MODIFY `ciot` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `ciot` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- Constraints for dumped tables

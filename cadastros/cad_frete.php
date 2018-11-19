@@ -75,8 +75,10 @@
 	$stmt->bindParam(10, $obs);
 	$stmt->bindParam(11, $ret_dthr);
 	$stmt->bindParam(12, $contratante);
-	if ($stmt->execute()) {
-		header("Location: ../fretes.php");
-	}else
-		echo "ocorreu um erro ao inserir";
+
+	if($stmt->execute() === false){
+	    echo "<pre>";
+	    print_r($stmt->errorInfo());
+	    echo "</pre>";
+	}
 ?>
