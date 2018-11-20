@@ -11,7 +11,7 @@
 <body>
 	<!--cabeçalho-->
 	<header>
-		<a href="index.php" class="opcoes-desk"><div>Página inicial</div></a>
+		<a href="fretes.php" class="opcoes-desk"><div>Voltar</div></a>
 		<h1>Frete-Fetch</h1>
 		<a href="login.php" class="opcoes-desk"><div style="background-color: #0088cc; color: #0088cc;">Faça seu login!</div></a>
 		<a href="index.php" class="opcoes-mob"><div>Página inicial</div></a>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: 19-Nov-2018 às 14:12
+-- Generation Time: 20-Nov-2018 às 17:59
 -- Versão do servidor: 10.1.36-MariaDB
 -- versão do PHP: 7.2.10
 
@@ -30,9 +30,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `caminhao` (
   `placa` varchar(7) NOT NULL,
-  `model` varchar(30) NOT NULL,
-  `chass` varchar(17) NOT NULL,
-  `docum` varchar(15) NOT NULL,
+  `apelido` varchar(15) NOT NULL,
   `tipo` varchar(3) NOT NULL,
   `motorista` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -59,7 +57,7 @@ CREATE TABLE `caminhoneiro` (
 --
 
 INSERT INTO `caminhoneiro` (`cpf`, `cnh`, `nome`, `fone`, `email`, `dtnasc`, `ender`, `ender_cida`) VALUES
-('8680686913', 'C', 'Vitor Antonio Apolinário', '3329-3275', 'vitorapoli@gmail.com', '2018-06-10', 'julio gasparetto', 'POA');
+('08680686913', 'D', 'Vitor Antonio Apolinário', '3329-3275', 'vitorapoli@gmail.com', '1999-06-10', 'julio gasparetto', 'POA');
 
 -- --------------------------------------------------------
 
@@ -134,9 +132,9 @@ INSERT INTO `estado` (`sigla`, `nome`) VALUES
 
 CREATE TABLE `frete` (
   `ciot` bigint(20) UNSIGNED NOT NULL,
-  `valor` decimal(10,0) NOT NULL,
-  `peso` decimal(10,0) NOT NULL,
-  `volume` decimal(10,0) NOT NULL,
+  `valor` decimal(10,2) NOT NULL,
+  `peso` decimal(10,2) NOT NULL,
+  `volume` decimal(10,2) NOT NULL,
   `ret_local` varchar(50) NOT NULL,
   `ent_local` varchar(50) NOT NULL,
   `ret_dthr` datetime NOT NULL,
@@ -155,8 +153,12 @@ CREATE TABLE `frete` (
 --
 
 INSERT INTO `frete` (`ciot`, `valor`, `peso`, `volume`, `ret_local`, `ent_local`, `ret_dthr`, `ent_dthr`, `tipo_cami`, `contratante`, `motorista`, `ret_cidad`, `ent_cidad`, `tipo`, `obs`) VALUES
-(12, '321', '123', '123', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:20:00', NULL, 'CMB', '75639534000161', NULL, 'CBW', 'POA', 'FIG', '21323132345ergdfgdfg'),
-(13, '321', '123', '123', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:20:00', NULL, 'CMB', '75639534000161', NULL, 'CBW', 'POA', 'FIG', '21323132345ergdfgdfg');
+(15, '3.00', '1.00', '2.00', 'rua das bromelias', '34234', '2018-01-01 20:20:00', '2018-11-19 19:50:18', 'NA', '75639534000161', '08680686913', 'CBW', 'POA', 'FIG', 'testetestetestetestetestetestetestetestetesteteste'),
+(16, '212.00', '213.00', '1231.00', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:20:00', '2018-11-19 20:03:27', 'CMB', '75639534000161', '08680686913', 'XAP', 'POA', 'GRN', '123123wefdsdfsdfgw4tr345345'),
+(17, '4234.00', '5312.00', '4324.00', 'rua das bromelias', 'rua dos canisso', '2018-11-20 14:30:00', '2018-11-20 17:32:17', 'CRT', '75639534000161', '08680686913', 'CBW', 'POA', 'FIG', 'esta funcionando essa bosta?'),
+(18, '340.00', '5566.00', '4324.00', 'rua das bromelias', 'rua dos canisso', '2018-01-01 20:26:00', '2018-11-20 17:44:36', 'CRT', '75639534000161', '08680686913', 'CBW', 'POA', 'FIG', '34234234234234'),
+(19, '4234.00', '3423.00', '3423.00', 'rua das bromelias', '324324', '2018-01-01 20:22:00', '2018-11-20 17:51:51', 'CMB', '75639534000161', '08680686913', 'POA', 'CBW', 'GRN', '4234234'),
+(20, '342.00', '34234.00', '34234.00', 'rua das bromelias', '42342', '2018-02-20 19:20:00', '2018-11-20 17:52:39', 'TRK', '75639534000161', '08680686913', 'POA', 'XAP', 'IND', '234234234');
 
 -- --------------------------------------------------------
 
@@ -303,7 +305,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `frete`
 --
 ALTER TABLE `frete`
-  MODIFY `ciot` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ciot` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

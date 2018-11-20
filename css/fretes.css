@@ -93,7 +93,7 @@ label[for="controle-menu"]{
 
 .titulo-section{
 	padding-top: 10px;
-	color: #ffffff;
+	color: #0088cc
 	text-shadow: 1px 1px #00111a;
 	width: 70%;
 	text-align: center;
@@ -219,7 +219,7 @@ label[for="controle-menu"]{
 		background-color: #0088cc;
 		display: block;
 		width: 20%;
-		height: 250px;
+		height: 300px;
 		position: sticky;
 		top: 101px;
 	}

@@ -8,4 +8,5 @@
 		$stmt->bindParam(2, $_GET['ciot']);
 		$stmt->execute();
 	}
+	header("Location: ../fretes.php");
 ?>
