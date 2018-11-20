@@ -20,10 +20,15 @@
 				cretirada.sigla=f.ret_cidad
 			join cidade centrega on
 			    centrega.sigla=f.ent_cidad
-			where ciot = ?";
+			where motorista is null 
+				  and ret_dthr is null
+				  and ent_dthr is null
+				  and ciot = ? 
+				  and contratante = ?";
 		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
 		$rs = $con->prepare($sql);
 		$rs->bindParam(1, $_GET['ciot']);
+		$rs->bindParam(2, $_SESSION['usuario']['dados']['cnpj']);
 		$rs->execute();
 		if($rs->rowCount()==0)
 			header("Location: fretes.php");
