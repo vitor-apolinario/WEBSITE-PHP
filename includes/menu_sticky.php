@@ -16,6 +16,7 @@
 		<?php 
 		} 
 		?>
+		<a href="relatorios.php"><li>Gráfico</li></a>
 		<a href="sair.php"><li>Sair</li></a>
 	</ul>
 </nav>
