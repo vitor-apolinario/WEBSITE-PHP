@@ -1,13 +1,5 @@
 <?php
 	include "includes/conexao.php";
-	echo "<pre>";
-	echo "session:";
-	if (isset($_SESSION))
-		print_r($_SESSION);
-	echo "request:";
-	if (isset($_REQUEST))
-		print_r($_REQUEST);
-	echo "</pre>";
 ?>
 <!DOCTYPE.php>
 <html lang = "pt-br">

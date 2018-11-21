@@ -1,8 +1,12 @@
 <?php
 	@session_start();
-	// AO FAZER LOGIN ARMAZENAR NA SESSION O TIPO DE USUÁRIO,
-	// E EXIBIR A LISTA DE FRETES DE ACORDO E TAMBÉM ADICIONAR
-	// UMA OPCAO CASO SEJA EMPRESA, PARA ARRUMAR OS DADOS
+	include "includes/header_cadastro_frete.php";
+	/*echo "<pre>";
+	print_r($_SESSION);
+	echo "</pre>";*/
+	if(!isset($_SESSION['usuario'])){
+		header("Location: login.php");
+	}
 ?>
 <?php
 	$form_action="cadastros/cad_frete.php";
@@ -36,8 +40,8 @@
 	}else{
 		$titulo="Solicitar serviço";
 	}
-	include "includes/header_cadastro_frete.php";
 ?>
+
 <div class="container">
 	<h1 style="text-align: center;"><?=$titulo;?></h1>
 	<form action="<?=$form_action?>" method="post" id="form-frete">

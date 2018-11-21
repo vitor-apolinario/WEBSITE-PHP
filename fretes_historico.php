@@ -1,5 +1,9 @@
-<?php  
-	include "includes/header_fretes.php";
+<?php
+	@session_start();
+	include "includes/header_cadastro_frete.php";
+	if(!isset($_SESSION['usuario'])){
+		header("Location: login.php");
+	}
 	include "includes/functions.php";
 ?>	
 	<div class="container">

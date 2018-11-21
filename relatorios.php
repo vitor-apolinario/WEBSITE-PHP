@@ -1,6 +1,11 @@
-<?php  
+<?php
+    @session_start();
     include "includes/header_fretes.php";
-?>  
+    if(!isset($_SESSION['usuario'])){
+        header("Location: login.php");
+    }
+    include "includes/functions.php";
+?>
     <script src="Highcharts-6.2.0/code/highcharts.js"></script>
     <script src="Highcharts-6.2.0//code/modules/exporting.js"></script>
     <script src="Highcharts-6.2.0//code/modules/export-data.js"></script>
