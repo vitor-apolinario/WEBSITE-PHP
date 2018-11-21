@@ -107,14 +107,29 @@ function validaCadastro(){
 	//valida email
 	var email = document.getElementById("email");
 	var erro_email = document.getElementById("msg-email");
-	if((email.value == "") || (email.value.indexOf("@") == -1)){
-		erro_email.innerHTML = "Por favor digite o E-mail";
+
+	var xhttp = new XMLHttpRequest();
+	xhttp.open("GET", "ajax/verificaEmail.php?email="+email, true);
+	xhttp.send();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			erro_email.innerHTML += this.responseText;
+		}
+	}
+	erro_email.style.display = 'block';
+	/*if(erro_email.innerHTML == " "){
+		if((email.value == "") || (email.value.indexOf("@") == -1)){
+			erro_email.innerHTML = "Por favor digite o E-mail";
+			erro_email.style.display = 'block';
+			contErro+=1;
+		}
+		else{
+			erro_email.style.display = 'none';
+		}
+	}else{
 		erro_email.style.display = 'block';
 		contErro+=1;
-	}
-	else{
-		erro_email.style.display = 'none';
-	}
+	}*/
 
     var endereco = document.getElementById("endereco");
 	var erro_endereco = document.getElementById("msg-endereco");

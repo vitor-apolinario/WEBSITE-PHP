@@ -52,6 +52,19 @@
 		}
 		if(!($concordo))
 			$erros[] = "Você deve concordar com os termos do site";
+
+		$sql_valida="SELECT
+						email
+					FROM
+						usuario u
+					WHERE u.email='$email'";
+		include_once "includes/conexao.php";
+		$result=mysqli_fetch_array(mysqli_query($conexao, $sql_valida), MYSQLI_ASSOC);
+
+		if(isset($result)){
+			$erros[] = "Email já em uso";
+		}
+
 		if (count($erros) == 0) {
 			include_once "includes/conexao.php";
 			$arrayName = array(
@@ -77,18 +90,7 @@
 			//--------------------------------------------------
 
 
-			//------------valida email/senha NO BD-----
-			$sql_valida="SELECT
-							email
-						FROM
-							usuario u
-						WHERE u.email='$email'";
-			$result=mysqli_fetch_array(mysqli_query($conexao, $sql_valida), MYSQLI_ASSOC);
-
-			if(isset($result)){
-				echo "email já cadastrado, query não será executada!";
-				die();
-			}
+			//------------valida email/senha NO BD----
 			//-----------------------------------------
 
 			//---------insert cam/emp------------------
