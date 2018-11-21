@@ -91,6 +91,23 @@ function validarCNPJ(cnpj) {
 
 }
 
+function verificaEmail(email){
+	var xhttp = new XMLHttpRequest();
+	var resposta;
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+				resposta = this.responseText;
+				if(resposta == "S"){
+					return true;
+				}else{
+					return false;
+				}
+		}
+	};
+	xhttp.open("GET", "ajax/verificaEmail.php?email="+email, true);
+	xhttp.send();
+}
+
 function validaCadastro(){
 	var contErro = 0;
 
@@ -107,29 +124,29 @@ function validaCadastro(){
 	//valida email
 	var email = document.getElementById("email");
 	var erro_email = document.getElementById("msg-email");
-
-	var xhttp = new XMLHttpRequest();
-	xhttp.open("GET", "ajax/verificaEmail.php?email="+email, true);
-	xhttp.send();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			erro_email.innerHTML += this.responseText;
-		}
-	}
-	erro_email.style.display = 'block';
-	/*if(erro_email.innerHTML == " "){
-		if((email.value == "") || (email.value.indexOf("@") == -1)){
-			erro_email.innerHTML = "Por favor digite o E-mail";
-			erro_email.style.display = 'block';
-			contErro+=1;
-		}
-		else{
-			erro_email.style.display = 'none';
-		}
-	}else{
+	if((email.value == "") || (email.value.indexOf("@") == -1)){
+		erro_email.innerHTML = "Por favor digite o E-mail";
 		erro_email.style.display = 'block';
 		contErro+=1;
-	}*/
+	}else{
+		var xhttp = new XMLHttpRequest();
+		var resposta;
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+					resposta = this.responseText;
+					if(resposta == "S"){
+						erro_email.innerHTML = "Este email já esta em uso";
+						erro_email.style.display = 'block';
+						contErro+=1;
+					}else{
+						erro_email.style.display = 'none';
+					}
+			}
+		};
+		xhttp.open("GET", "ajax/verificaEmail.php?email="+email.value, true);
+		xhttp.send();
+	}
+	
 
     var endereco = document.getElementById("endereco");
 	var erro_endereco = document.getElementById("msg-endereco");

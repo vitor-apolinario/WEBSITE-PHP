@@ -15,15 +15,15 @@
 				cretirada.estado as siger,
 				centrega.sigla   as sigce,
 				centrega.estado  as sigee
-			from frete f 
+			from frete f
 			join cidade cretirada on
 				cretirada.sigla=f.ret_cidad
 			join cidade centrega on
 			    centrega.sigla=f.ent_cidad
-			where motorista is null 
+			where motorista is null
 				  and ret_dthr is null
 				  and ent_dthr is null
-				  and ciot = ? 
+				  and ciot = ?
 				  and contratante = ?";
 		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
 		$rs = $con->prepare($sql);
@@ -115,7 +115,7 @@
 			</div>
 			<div>
 		    	<label for="valor" class="label-alinhado">Valor:</label>
-		    	<input type="number" id="valor" name="valor" " min="1" required <?=isset($row->valor) ? "value='$row->valor'" : "1" ?>>
+		    	<input type="number" id="valor" name="valor"  min="1" required <?=isset($row->valor) ? "value='$row->valor'" : "1" ?>>
 		    	<br><span class="msg-erro label-alinhado" id="msg-valor"></span>
 			</div>
 	    </div>
@@ -125,7 +125,7 @@
 	    		<label for="tipo" class="label-alinhado">Tipo de carga:</label>
 		    	<select id="tipo" name="tipo" required>
 		    		<option value="">Selecione...</option>
-		    		<?php  
+		    		<?php
 		    			include_once "includes/conexao.php";
 		    			$r=mysqli_query($conexao, "select sigla, descr from tpcarga;");
 		    			while ($tp = mysqli_fetch_array($r)) {
@@ -140,7 +140,7 @@
 	    		<label for="tipo_cami" class="label-alinhado">Tipo de caminhão:</label>
 		    	<select id="tipo_cami" name="tipo_cami" required>
 		    		<option value="">Selecione...</option>
-		    		<?php  
+		    		<?php
 		    			include_once "includes/conexao.php";
 		    			$s=mysqli_query($conexao, "select sig, descr from tpcaminhao;");
 		    			while ($tp = mysqli_fetch_array($s)) {
@@ -169,7 +169,7 @@
 	    	<div>
 	    		<label for="ret_dthr">Horário de retirada:</label>
 	    		<?php
-	    			if(isset($row->ret_dthr)){  
+	    			if(isset($row->ret_dthr)){
 		    			$date = new DateTime($row->ret_dthr);
 		    			$dataInput = $date->format('Y-m-d\TH:i:s');
 	    			}else
@@ -183,14 +183,13 @@
 			   <input type="reset" id="botao-limpar" value="Limpar">
 		</div>
 		<input type="hidden" name="contratante" value="<?=$_SESSION['usuario']['dados']['cnpj']?>">
-		<?php 
+		<?php
 		if(isset($_GET['ciot']))
 			echo "<input type='hidden' name ='ciot' value='".$_GET['ciot']."'>";
 		?>
 	</form>
 </div>
 
-<?php  
+<?php
 	include "includes/footer.php";
 ?>
-

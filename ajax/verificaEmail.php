@@ -9,8 +9,8 @@
     $result=mysqli_fetch_array(mysqli_query($conexao, $sql_valida), MYSQLI_ASSOC);
 
 	if(isset($result)){
-		echo "Email já em uso, digite outro";
+		echo "S";
 	}else{
-		echo " ";
+		echo "N";
 	}
 ?>
