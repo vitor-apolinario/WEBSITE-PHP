@@ -61,7 +61,7 @@ label[for="controle-menu"]{
 
 .top-wrap{
 	width: 100%;
-	display: flex; 
+	display: flex;
 	align-items: center;
 	padding-bottom: 5px;
 }
@@ -101,14 +101,14 @@ label[for="controle-menu"]{
 
 .c3 {
 	display: flex;
-	flex-flow: column wrap; 
+	flex-flow: column wrap;
 	background-color: #4dc3ff;
 }
 
 .c4 {
 	background-color: #66ccff;
 	display: flex;
-	flex-flow: column wrap; 
+	flex-flow: column wrap;
 }
 
 .c5{
@@ -135,12 +135,12 @@ label[for="controle-menu"]{
 	width: 95%;
 	background-color: #e6e6e6;
 	margin: 20px 0px 20px 0px;
-	box-shadow: 2px 2px 15px; 
+	box-shadow: 2px 2px 15px;
 }
 .frete{
 
 	display: flex;
-	flex-flow: row wrap; 
+	flex-flow: row wrap;
 	margin: 10px;
 	padding: 5px;
 	border: 1px solid grey;
@@ -219,7 +219,7 @@ label[for="controle-menu"]{
 		background-color: #0088cc;
 		display: block;
 		width: 20%;
-		height: 350px;
+		height: 300px;
 		position: sticky;
 		top: 101px;
 	}
@@ -227,13 +227,13 @@ label[for="controle-menu"]{
 		width: 80%;
 		background-color: #e6e6e6;
 		margin: 20px 0px 20px 0px;
-		box-shadow: 2px 2px 15px; 
+		box-shadow: 2px 2px 15px;
 	}
 	.container{
 		display: flex;
 		flex-flow: row nowrap;
 		width: 980px;
-		
+
 	}
 	.c1 .top-wrap label{
 		display: none;
@@ -270,7 +270,7 @@ label[for="controle-menu"]{
 	}
 	.frete{
 		display: flex;
-		flex-flow: row wrap; 
+		flex-flow: row wrap;
 		margin: 10px;
 		padding: 5px;
 		border: 1px solid grey;
