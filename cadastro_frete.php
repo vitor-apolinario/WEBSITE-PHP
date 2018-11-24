@@ -111,7 +111,7 @@
 		$stmt->bindParam(12, $contratante);
 		$stmt->bindParam(13, $ciot);
 		if ($stmt->execute()) {
-			header("Location: ../fretes.php");
+			header("Location: fretes.php");
 		}else
 			echo "ocorreu um erro ao inserir";
 	}else if(isset($_POST['cadastrar'])){
