@@ -25,7 +25,6 @@
 			join cidade centrega on
 			    centrega.sigla=f.ent_cidad
 			where motorista is null
-				  and ret_dthr is null
 				  and ent_dthr is null
 				  and ciot = ?
 				  and contratante = ?";
