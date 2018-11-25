@@ -1,8 +1,8 @@
 <?php
 	$host = "localhost";
-	$user = "root";
-	$senha = "";
-	$database = "ff";
+	$user = "id7242851_root";
+	$senha = "senha";
+	$database = "id7242851_ff";
 	$conexao = mysqli_connect($host, $user, $senha, $database) or
 	die("Houve um erro de conexão ao banco de dados.");
 	mysqli_query($conexao, "SET NAMES 'utf8'");
