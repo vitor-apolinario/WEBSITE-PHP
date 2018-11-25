@@ -10,7 +10,7 @@
     <script src="Highcharts-6.2.0//code/modules/exporting.js"></script>
     <script src="Highcharts-6.2.0//code/modules/export-data.js"></script>
 
-<div style="height: 200px"></div>
+<div style="height: 120px"></div>
 
 <a href="fretes.php"><div style="position: absolute; left: 25px; top:30px">Voltar</div></a>
 <div id="container" style="width: 50%; margin-right: 50px;"></div>

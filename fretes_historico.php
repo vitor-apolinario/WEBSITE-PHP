@@ -1,6 +1,6 @@
 <?php
 	@session_start();
-	include "includes/header_cadastro_frete.php";
+	include "includes/header_fretes.php";
 	if(!isset($_SESSION['usuario'])){
 		header("Location: login.php");
 	}
