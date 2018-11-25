@@ -51,7 +51,7 @@
 		$placa=   trim($_POST['placa']);
 		$tipo=   trim($_POST['tipo']);
 		$apelido=   trim($_POST['apelido']);
-		$motorista=   trim($_SESSION['usuario']['dados']['cpf']);
+		$motorista=   trim($_SESSION['usuario']['cpf']);
 
 
 
@@ -84,7 +84,7 @@
 			<div class="form-item">
 				<div>
 	    		<label for="ent_local" class="label-alinhado">Placa:</label>
-	    		<input type="text" name="placa" maxlength="50" id="placa" <?=isset($row->placa) ? "value='$row->placa'" : "" ?>>
+	    		<input type="text" name="placa" maxlength="50" id="placa" <?=isset($row->placa) ? "value='$row->placa'" : "" ?> <?=isset($_POST['placa']) ? "value='".$_POST['placa']."'" : "" ?>>
 	    		<br><span class="msg-erro label-alinhado" id="msg-placa"></span>
 	    	</div>
 				<div>
@@ -115,10 +115,6 @@
 			   <input type="submit" id="botao" value="Confirmar" name="cadastrar">
 			   <input type="reset" id="botao-limpar" value="Limpar">
 		</div>
-		<?php
-		if(isset($_GET['placa']))
-			echo "<input type='hidden' name ='placa' value='".$_GET['placa']."'>";
-		?>
 	</form>
 </div>
 
