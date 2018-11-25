@@ -1,7 +1,7 @@
 <?php
 	@session_start();
 	if(isset($_SESSION['usuario'])){
-		header("Location: fretes.php");
+		header("Location: index.php");
 	}
 	if(isset($_POST['cadastrar'])){
 		echo "<pre>";

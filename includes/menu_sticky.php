@@ -12,6 +12,7 @@
 		}else{
 		?>
 		<a href="fretes_historico.php"><li>Serviços prestados</li></a>
+		<a href="caminhao.php"><li>Meu caminhão</li></a>
 		<?php
 		}
 		?>

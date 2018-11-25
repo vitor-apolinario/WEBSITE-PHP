@@ -5,9 +5,9 @@
 		header("Location: login.php");
 	}
 	include "includes/functions.php";
-?>	
+?>
 	<div class="container">
-		<?php  
+		<?php
 			include "includes/menu_sticky.php";
 		?>
 		<div id = "fretes_list">
@@ -19,7 +19,7 @@
 					//verifica se o motorista tem um frete em andamento
 					$rs = $con->prepare("select * from frete where ent_dthr is null and motorista = ?");
 					$rs->bindParam(1, $_SESSION['usuario']['dados']['cpf']);
-					if ($rs->execute()) {					
+					if ($rs->execute()) {
 						if($rs->rowCount()){
 							//se sim, ele só pode visualizá-lo
 							$cond="f.motorista = '" . $_SESSION['usuario']['dados']['cpf'] . "' limit 1";
@@ -29,7 +29,7 @@
 							$cond="motorista is null";
 							echo "<h2 class='titulo-section' style='width: 100%;'>Lista de fretes</h2>";
 						}
-					}					
+					}
 				}
 				$sql="select
 						f.ciot,
@@ -44,8 +44,8 @@
 					    c.nome as nomec,
 					    cpf,
 					    f.valor
-					from frete f 
-					left join tpcaminhao tpc on 
+					from frete f
+					left join tpcaminhao tpc on
 					    tpc.sig=f.tipo_cami
 					join empresa e on
 					    e.cnpj=f.contratante
@@ -61,15 +61,15 @@
 					    tpcarga.sigla=f.tipo
 					left join caminhoneiro c on
 						c.cpf=f.motorista
-					where 
-						f.ent_dthr is null 
+					where
+						f.ent_dthr is null
 						and " . $cond;
 				$rs = $con->prepare($sql);
 				$rs->execute();
 				while($row = $rs->fetch(PDO::FETCH_OBJ)){
 			?>
 			<div class="frete">
-				<?php 
+				<?php
 				if($_SESSION['usuario']['fl_tipo']=="E" && $row->nomec == null)
 				 echo "<a class='linke' href='cadastros/del_frete.php?ciot=$row->ciot'><span class='cancelar-frete'><strong>X</strong></span></a>";
 				?>
@@ -94,7 +94,7 @@
 					<p>Caminhão: <?=$row->tpc;?></p>
 				</div>
 				<?php
-				if($_SESSION['usuario']['fl_tipo']=="E") { 
+				if($_SESSION['usuario']['fl_tipo']=="E") {
 					if ($row->nomec == null) {
 						echo "<div class='status-frete-pendente'>Entrega pendente</div>";
 						echo "<a class='linke' href='cadastro_frete.php?ciot=" . $row->ciot  . "'><div class='editar-frete'>Editar informações</div></a>";
@@ -103,7 +103,7 @@
 				}else{
 					if($row->cpf != $_SESSION['usuario']['dados']['cpf']){
 						$cpf=$_SESSION['usuario']['dados']['cpf'];
-				?>					
+				?>
 						<div class="status-frete-liberado" id="pegar<?=$row->ciot?>" onclick="pegarFrete(<?=$row->ciot?>, <?="'".$cpf."'"?>)" >Pegar frete</div>
 				<?php
 					}else{
@@ -112,11 +112,11 @@
 				}
 				?>
 			</div>
-			<?php 
-			} 
+			<?php
+			}
 			?>
 		</div>
 	</div>
-<?php 
+<?php
 	include "includes/footer.php";
 ?>

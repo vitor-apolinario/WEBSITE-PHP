@@ -1,5 +1,9 @@
-<?php 
+<?php
 	include "includes/header_login.php";
+	@session_start();
+	if(isset($_SESSION['usuario'])){
+		header("Location: index.php");
+	}
 	$mensagem = isset($_GET['erro']) ? "Usuário e ou senha incorretos" : "";
 	$email = isset($_GET['email']) ? $_GET['email'] : "";
 ?>
@@ -11,20 +15,19 @@
 		      <label for="email" class="label-alinhado">E-mail:</label>
 		      <input type="email" id="email" name="email" maxlength="50" size="30" value="<?=$email?>">
 	      </div>
-	    </div>					    			    
+	    </div>
 	    <div class="form-item">
 	    	<div>
 		      <label for="senha" class="label-alinhado">Senha:</label>
 		      <input type="password" id="senha" name="senha" size="30">
 		      <span class="msg-erro" style="padding: 5px 0px 0px 50px"><?=$mensagem?></span>
 	    	</div>
-	    </div>			    
+	    </div>
 		<div class="form-buttons">
 		   <input type="submit" id="botao" value="Confirmar">
 		</div>
 	</form>
 </div>
-<?php 
+<?php
 	include "includes/footer.php";
 ?>
-
