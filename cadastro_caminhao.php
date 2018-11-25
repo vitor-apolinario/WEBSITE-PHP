@@ -12,6 +12,7 @@
 	if (isset($_GET['placa'])){
 		$sql="select * from caminhao where placa = ? and motorista = ?";
 		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+	//	$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
 		$rs = $con->prepare($sql);
 		$rs->bindParam(1, $_GET['placa']);
 		$rs->bindParam(2, $_SESSION['usuario']['dados']['cpf']);
@@ -32,7 +33,8 @@
 
 
 
-		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+	//	$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+		$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
 		$stmt = $con->prepare("update caminhao set tipo=?, apelido=? where placa=?");
 		$stmt->bindParam(1 , $tipo);
 		$stmt->bindParam(2 , $apelido);
@@ -60,7 +62,8 @@
 	 	// 	echo $row->descr . "<br/><hr/>";
 		// }
 
-		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+	//	$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+		$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
 		$stmt = $con->prepare("INSERT INTO caminhao (placa, apelido, tipo, motorista) values (?,?,?,?)");
 		$stmt->bindParam(1 , $placa);
 		$stmt->bindParam(2 , $apelido);

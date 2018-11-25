@@ -28,7 +28,8 @@
 				  and ent_dthr is null
 				  and ciot = ?
 				  and contratante = ?";
-		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+	//	$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+		$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
 		$rs = $con->prepare($sql);
 		$rs->bindParam(1, $_GET['ciot']);
 		$rs->bindParam(2, $_SESSION['usuario']['dados']['cnpj']);
@@ -95,7 +96,9 @@
 		print_r($arrayName);
 		echo "</pre>";
 
-		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+		//$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+		$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
+
 		$stmt = $con->prepare("update frete set ret_cidad=?, ret_local=?, ent_cidad=?, ent_local=?, peso=?, volume=?, valor=?, tipo=?, tipo_cami=?, obs=?, ret_dthr=?, contratante=? where ciot=?");
 		$stmt->bindParam(1 , $ret_cidad);
 		$stmt->bindParam(2 , $ret_local);
@@ -173,7 +176,9 @@
 	 	// 	echo $row->descr . "<br/><hr/>";
 		// }
 
-		$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+	//	$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+		$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
+
 		$stmt = $con->prepare("INSERT INTO frete (ret_cidad, ret_local, ent_cidad, ent_local, peso, volume, valor, tipo, tipo_cami, obs, ret_dthr, contratante) values (?,?,?,?,?,?,?,?,?,?,?,?)");
 		$stmt->bindParam(1 , $ret_cidad);
 		$stmt->bindParam(2 , $ret_local);

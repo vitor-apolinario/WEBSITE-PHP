@@ -34,7 +34,8 @@
 		?>
 		<div id = "fretes_list">
 			<?php
-				$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+			//	$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+				$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
 				$sql="select * from caminhao join caminhoneiro on cpf = motorista join tpcaminhao on sig = tipo where cpf = ".$_SESSION['usuario']['dados']['cpf'];
 				$rs = $con->prepare($sql);
 				$rs->execute();

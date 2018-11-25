@@ -13,7 +13,8 @@
 		<div id = "fretes_list">
 			<h2 class="titulo-section" style="width: 100%;">Histórico de serviços</h2>
 			<?php
-				$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+			//	$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+				$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
 				if($_SESSION['usuario']['fl_tipo']=="E"){
 					$cond="contratante = " . $_SESSION['usuario']['dados']['cnpj'];
 				}else{

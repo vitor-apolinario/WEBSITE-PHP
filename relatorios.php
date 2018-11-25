@@ -17,7 +17,7 @@
 
 
     <?php  
-        $con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
+        $con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
         $rs = $con->prepare("select cast(max(ent_dthr) as date) as dt from frete where motorista = ? or contratante = ?");
         
         $cpf        = isset($_SESSION['usuario']['dados']['cpf'])  ? $_SESSION['usuario']['dados']['cpf']  : '0';
