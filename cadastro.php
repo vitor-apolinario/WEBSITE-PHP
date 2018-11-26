@@ -4,9 +4,7 @@
 		header("Location: index.php");
 	}
 	if(isset($_POST['cadastrar'])){
-		echo "<pre>";
-		print_r($_POST);
-		echo "</pre>";
+
 
 		$fl_usuario= trim($_POST['fl_tipo']);
 		$nome=       trim($_POST['nome']);
@@ -67,26 +65,13 @@
 
 		if (count($erros) == 0) {
 			include_once "includes/conexao.php";
-			$arrayName = array(
-				$fl_usuario,
-				$nome,
-				$email,
-				$cid,
-				$telefone,
-				$endereco,
-				$senha1,
-				$senha2,
-				$concordo
-			);
+
 			if ($fl_usuario=="c") {
 				$categoria=$_POST['categoria'];
 				$datanasc=$_POST['datanasc'];
 				$arrayName[]=$categoria;
 				$arrayName[]=$datanasc;
 			}
-			echo "<pre>";
-			print_r($arrayName);
-			echo "</pre>";
 			//--------------------------------------------------
 
 
@@ -94,29 +79,29 @@
 			//-----------------------------------------
 
 			//---------insert cam/emp------------------
-			echo "<pre>";
+
 			if ($_POST['fl_tipo']=="c"){
-				echo $sql_camemp="INSERT INTO `caminhoneiro`(`cnh`, `nome`, `fone`, `cpf`, `email`, `dtnasc`, `ender`, `ender_cida`)
+				$sql_camemp="INSERT INTO `caminhoneiro`(`cnh`, `nome`, `fone`, `cpf`, `email`, `dtnasc`, `ender`, `ender_cida`)
 				VALUES ('$categoria', '$nome', '$telefone', $cpf, '$email','$datanasc', '$endereco', '$cid');";
 				$type="C";
 			}else{
-				echo $sql_camemp="INSERT INTO `empresa`(`cnpj`, `nome`, `ender`, `fone`, `email`, `ender_cidad`)
+				$sql_camemp="INSERT INTO `empresa`(`cnpj`, `nome`, `ender`, `fone`, `email`, `ender_cidad`)
 				VALUES ($cnpj, '$nome', '$endereco', '$telefone', '$email', '$cid');";
 				$type="E";
 			}
-			echo "</pre>";
+
 			//-----------------------------------------
 
 			$senha1=md5($senha1);
 			//--------insert table usuario-------------
-			echo "<pre>";
-			echo $sql_usuario="INSERT INTO `usuario`(`email`, `senha`, `fl_tipo`)
+			$sql_usuario="INSERT INTO `usuario`(`email`, `senha`, `fl_tipo`)
 			VALUES ('$email', '$senha1', '$type');";
-			echo "</pre>";
+
 			//-----------------------------------------
 
 			mysqli_query($conexao, $sql_usuario);
 			mysqli_query($conexao, $sql_camemp);
+			header("Location: login.php");
 			//header("Location: ../index.php");
 			//---------------somente para debug-----------------
 		}

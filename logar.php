@@ -1,11 +1,6 @@
 <?php
 	include "includes/conexao.php";
-	echo "<pre>";
-	if (isset($_SESSION))
-		print_r($_SESSION);
-	if (isset($_POST))
-		print_r($_POST);
-	echo "</pre>";
+
 
 	// $sql = "select * from produto where id = {$_GET['id']}";
 	// $resultado = mysqli_query($conexao, $sql);

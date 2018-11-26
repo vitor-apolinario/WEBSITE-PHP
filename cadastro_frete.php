@@ -77,24 +77,6 @@
 		$contratante= $_POST['contratante'];
 		$ciot=        $_POST['ciot'];
 
-		$arrayName = array(
-			$ret_cidad,
-			$ret_local,
-			$ent_cidad,
-			$ent_local,
-			$peso,
-			$volume,
-			$valor,
-			$tipo,
-			$tipo_cami,
-			$obs,
-			$ret_dthr,
-			$contratante,
-			$ciot
-		);
-		echo "<pre>";
-		print_r($arrayName);
-		echo "</pre>";
 
 		//$con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
 		$con = new PDO("mysql:host=localhost;dbname=id7242851_ff;charset=UTF8", "id7242851_root", "senha");
@@ -150,23 +132,6 @@
 		$ret_dthr=    $_POST['ret_dthr'];
 		$contratante= $_POST['contratante'];
 
-		$arrayName = array(
-			$ret_cidad,
-			$ret_local,
-			$ent_cidad,
-			$ent_local,
-			$peso,
-			$volume,
-			$valor,
-			$tipo,
-			$tipo_cami,
-			$obs,
-			$ret_dthr,
-			$contratante
-		);
-		echo "<pre>";
-		print_r($arrayName);
-		echo "</pre>";
 
 		// exemplo de select usando PDO
 		// $con = new PDO("mysql:host=localhost;dbname=ff;charset=UTF8", "root", "");
@@ -197,6 +162,8 @@
 		    echo "<pre>";
 		    print_r($stmt->errorInfo());
 		    echo "</pre>";
+		}else{
+			header("Location: fretes.php");
 		}
 	}
 ?>
