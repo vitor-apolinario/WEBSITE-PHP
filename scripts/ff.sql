@@ -49,7 +49,7 @@ CREATE TABLE `caminhoneiro` (
   `email` varchar(30) NOT NULL,
   `dtnasc` date NOT NULL,
   `ender` varchar(50) NOT NULL,
-  `ender_cida` varchar(3) NOT NULL
+  `ender_cida` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -66,7 +66,7 @@ INSERT INTO `caminhoneiro` (`cpf`, `cnh`, `nome`, `fone`, `email`, `dtnasc`, `en
 --
 
 CREATE TABLE `cidade` (
-  `sigla` varchar(3) NOT NULL,
+  `sigla` varchar(4) NOT NULL,
   `nome` varchar(50) NOT NULL,
   `estado` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -93,7 +93,7 @@ CREATE TABLE `empresa` (
   `ender` varchar(30) NOT NULL,
   `fone` varchar(11) NOT NULL,
   `email` varchar(30) NOT NULL,
-  `ender_cidad` varchar(3) NOT NULL
+  `ender_cidad` varchar(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -142,8 +142,8 @@ CREATE TABLE `frete` (
   `tipo_cami` varchar(3) DEFAULT NULL,
   `contratante` varchar(14) NOT NULL,
   `motorista` varchar(11) DEFAULT NULL,
-  `ret_cidad` varchar(3) NOT NULL,
-  `ent_cidad` varchar(3) NOT NULL,
+  `ret_cidad` varchar(4) NOT NULL,
+  `ent_cidad` varchar(4) NOT NULL,
   `tipo` varchar(3) NOT NULL,
   `obs` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
